@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ikimono | Project Details</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .mono { font-family: 'Courier New', Courier, monospace; }
+    </style>
+</head>
+<body class="bg-zinc-950 text-gray-100 antialiased selection:bg-blue-500 selection:text-white">
+
+    <nav class="w-full bg-zinc-950/80 backdrop-blur-md z-50 border-b border-zinc-800 sticky top-0">
+        <div class="max-w-4xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="index.html" class="text-zinc-400 hover:text-white transition mono text-sm">← Back to Portfolio</a>
+        </div>
+    </nav>
+
+    <main class="max-w-4xl mx-auto px-6 py-16">
+        
+        <header class="mb-16">
+            <h1 class="text-5xl font-bold tracking-tighter mb-4">Ikimono</h1>
+            <p class="text-xl text-zinc-400 mono">Emotional Intelligence Wearable for Children</p>
+        </header>
+
+        <section class="mb-16 border-l border-zinc-800 pl-6">
+            <h2 class="text-2xl font-bold mb-4">Project Overview</h2>
+            <p class="text-zinc-300 leading-relaxed mb-6">
+                Ikimono is a wearable watch designed for primary school children to help them detect and manage their emotions[cite: 10, 18]. Using integrated physiological sensors, the device reflects the user's emotional state through an interactable creature on the screen, complementing mindfulness techniques taught in schools[cite: 12, 19].
+            </p>
+        </section>
+
+        <section class="mb-16">
+            <h2 class="text-2xl font-bold mb-6">Project Concept</h2>
+            <div class="w-full bg-zinc-900 rounded border border-zinc-800 overflow-hidden shadow-xl">
+                <img src="ikimono_poster_image.jpg" alt="Ikimono Project Poster" class="w-full h-auto">
+            </div>
+            <p class="text-sm text-zinc-500 mt-4 italic text-center">Conceptual poster detailing the "How It Works" workflow and design considerations.</p>
+        </section>
+
+        <section class="mb-16">
+            <h2 class="text-2xl font-bold mb-6">System Demonstration</h2>
+            <div class="w-full aspect-video bg-zinc-900 rounded border border-zinc-800 overflow-hidden shadow-lg">
+                <iframe width="100%" height="100%" src="https://www.youtube.com/embed/XsCFgK190L0" title="Ikimono Demonstration" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <p class="text-zinc-400 mt-6 leading-relaxed">
+                The showcase slides used giving details on the project
+            </p>
+        </section>
+
+        <section class="mb-16">
+            <h2 class="text-2xl font-bold mb-10">My Contributions</h2>
+            
+            <div class="mb-16">
+                <h3 class="text-xl font-bold mb-4 text-blue-400">01. IoT Implementation & Firmware</h3>
+                <p class="text-zinc-400 mb-6">
+                    Responsible for the core IoT architecture, integrating multi-modal sensors with the ESP32-S3 and developing the firmware for real-time data processing.
+                </p>
+                <a href="https://github.com/ErvinMX/Ikimono-" target="_blank" class="inline-block bg-zinc-800 hover:bg-zinc-700 border border-zinc-700 px-4 py-2 rounded mono text-sm transition">
+                    View IoT Source Code on GitHub ↗
+                </a>
+            </div>
+
+            <div class="mb-16">
+                <h3 class="text-xl font-bold mb-4 text-blue-400">02. Electronics Schematic Design</h3>
+                <p class="text-zinc-400 mb-6">
+                    Engineered the testboard schematic featuring a power management system with USB-C input, a BQ24075 battery charging circuit, and an AMS1117 voltage regulator.
+                </p>
+                <div class="w-full bg-zinc-900 rounded border border-zinc-800 overflow-hidden shadow-lg mb-4">
+                    <img src="ikimono_schematic.jpg" alt="Ikimono Electronics Schematic" class="w-full h-auto">
+                </div>
+                <p class="text-sm text-zinc-500">The design integrates a MAX30102 Heart Rate sensor, LSM6DS3 IMU, and an INMP441 Microphone for comprehensive bio-sensing.</p>
+            </div>
+
+            <div class="mb-16">
+                <h3 class="text-xl font-bold mb-4 text-blue-400">03. PCB Design & Optimization</h3>
+                <p class="text-zinc-400 mb-6">
+                    Translated the schematic into a compact PCB layout optimized for a wearable form factor. Focused on signal integrity for the ESP32-S3 module and strategic placement of mounting holes for the watch casing.
+                </p>
+                <div class="w-full bg-zinc-900 rounded border border-zinc-800 overflow-hidden shadow-lg">
+                    <img src="PCD_ikimono.jpg" alt="Ikimono PCB Layout" class="w-full h-auto">
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-16 p-6 bg-blue-900/20 border border-blue-500/30 rounded">
+            <h2 class="text-xl font-bold mb-2 text-blue-400 mono">Project Status: In Development</h2>
+            <p class="text-zinc-300 text-sm leading-relaxed">
+                This project has transitioned into a second phase of development with an external partner. While the core "Ikimono" V1 prototype focused on wearable bio-sensing, the partnership is facilitating a major pivot to expand the system's impact.
+            </p>
+        </section>
+
+        <section class="mb-16 pt-16 border-t border-zinc-800">
+            <h2 class="text-2xl font-bold mb-6">Team & Credits</h2>
+            <div class="flex flex-col md:flex-row gap-8 items-start bg-zinc-900/50 p-8 rounded border border-zinc-800">
+                <div class="w-full md:w-1/2 overflow-hidden rounded border border-zinc-700 shadow-lg">
+                    <img src="Ikimono_team.jpg" alt="Ikimono Development Team" class="w-full h-auto">
+                </div>
+                <div class="w-full md:w-1/2">
+                    <p class="text-zinc-300 italic mb-6 leading-relaxed">
+                        Beyond the hardware, I provided holistic support in system architecture and technical documentation to ensure project cohesion.
+                    </p>
+                    <div class="mono text-xs text-zinc-500 uppercase tracking-widest border-t border-zinc-800 pt-4">
+                        <p class="mb-3 text-zinc-400">Development Team:</p>
+                        <ul class="space-y-2">
+                            <li>Bryan Willson Chandna</li>
+                            <li>Lydia Tam</li>
+                            <li>Chaurasis Parth</li>
+                            <li>Sng Ming Xiang</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+</body>
+</html>

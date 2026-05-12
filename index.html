@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ming | Engineering Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom Monospace Accents */
+        .mono { font-family: 'Courier New', Courier, monospace; }
+        /* Ensures each section takes exactly the full screen height */
+        .fullscreen-section { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; }
+    </style>
+</head>
+<body class="bg-zinc-950 text-gray-100 antialiased selection:bg-blue-500 selection:text-white">
+
+    <nav class="fixed top-0 w-full bg-zinc-950/80 backdrop-blur-md z-50 border-b border-zinc-800">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="font-bold tracking-tighter text-xl">Project Portfolio</div>
+            <div class="space-x-8 text-sm mono text-gray-400">
+                <a href="#projects" class="hover:text-white transition">01.Projects</a>
+                <a href="#skills" class="hover:text-white transition">02.Skills</a>
+                <a href="#timeline" class="hover:text-white transition">03.Timeline</a>
+                <a href="#contact" class="hover:text-white transition">04.Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <section id="hero" class="fullscreen-section px-6 relative">
+        <div class="max-w-6xl mx-auto w-full">
+            <h1 class="text-6xl md:text-7xl font-bold tracking-tighter mb-6">
+                Hi 👋,<br><span class="text-zinc-500">I am </span>Sng Ming Xiang.
+            </h1>
+            <p class="text-xl text-zinc-400 max-w-2xl mb-10">
+                An Engineering Product Development student at SUTD. I focus on the intersection of hardware/electronics and software, with a particular interest in Semiconductor R&D, IOT systems, rapid prototyping and product development. I enjoy building systems that bridge the gap between digital simulations and physical hardware.
+            </p>
+            <div class="flex flex-wrap gap-4 mono text-sm">
+                <a href="#projects" class="bg-white text-black px-6 py-3 hover:bg-gray-200 transition">View Works</a>
+                <a href="SngMingXiang_CV copy.pdf" target="_blank" class="border border-zinc-500 text-white px-6 py-3 hover:bg-zinc-800 transition">Download CV ↓</a>
+                <a href="https://github.com/ErvinMX" target="_blank" class="border border-zinc-700 px-6 py-3 hover:bg-zinc-800 transition">GitHub ↗</a>
+            </div>
+        </div>
+    </section>
+    
+    <section id="projects" class="fullscreen-section px-6 bg-zinc-900 border-t border-zinc-800">
+        <div class="max-w-6xl mx-auto w-full">
+            <h2 class="text-3xl font-bold mb-12 text-zinc-400 uppercase tracking-widest mono text-sm">/ Featured Projects</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                
+                <div class="bg-zinc-950 p-8 border border-zinc-800 hover:border-zinc-500 transition-all duration-300 group flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-2xl font-bold mb-4">Frankenstein Reimagined</h3>
+                        <p class="text-zinc-400 text-sm mb-6 leading-relaxed">Fine-tuned Llama 3.1-8B to replicate the syntactic signature of Mary Shelley. Evaluated using R and Principal Component Analysis to map mimicry variance.</p>
+                        <div class="flex flex-wrap gap-2 mb-8 mono text-[10px] text-zinc-500 uppercase tracking-wider">
+                            <span class="border border-zinc-800 px-2 py-1">Llama 3.1</span>
+                            <span class="border border-zinc-800 px-2 py-1">Unsloth</span>
+                            <span class="border border-zinc-800 px-2 py-1">NLP</span>
+                        </div>
+                    </div>
+                    <a href="frankenstein.html" class="text-sm border-b border-zinc-700 hover:text-white hover:border-white transition-all w-fit pb-1 mono">Read more ↗</a>
+                </div>
+
+                <div class="bg-zinc-950 p-8 border border-zinc-800 hover:border-zinc-500 transition-all duration-300 group flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-2xl font-bold mb-4">Ikimono Wearable</h3>
+                        <p class="text-zinc-400 text-sm mb-6 leading-relaxed">A multi-modal system integrating ESP32 physiological sensing with ML-driven emotion classification for real-time bio-feedback intervention.</p>
+                        <div class="flex flex-wrap gap-2 mb-8 mono text-[10px] text-zinc-500 uppercase tracking-wider">
+                            <span class="border border-zinc-800 px-2 py-1">ESP32</span>
+                            <span class="border border-zinc-800 px-2 py-1">Keras</span>
+                            <span class="border border-zinc-800 px-2 py-1">IoT</span>
+                        </div>
+                    </div>
+                    <a href="ikimono.html" class="text-sm border-b border-zinc-700 hover:text-white hover:border-white transition-all w-fit pb-1 mono">Read more ↗</a>
+                </div>
+
+                <div class="bg-zinc-950 p-8 border border-zinc-800 hover:border-zinc-500 transition-all duration-300 group flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-2xl font-bold mb-4">I Cam'See</h3>
+                        <p class="text-zinc-400 text-sm mb-6 leading-relaxed">Inclusive classroom redesign using IoT camera systems. Developed high-fidelity spatial and lighting simulations to optimize accessibility.</p>
+                        <div class="flex flex-wrap gap-2 mb-8 mono text-[10px] text-zinc-500 uppercase tracking-wider">
+                            <span class="border border-zinc-800 px-2 py-1">Fusion 360</span>
+                            <span class="border border-zinc-800 px-2 py-1">Simulation</span>
+                        </div>
+                    </div>
+                    <a href="icamsee.html" class="text-sm border-b border-zinc-700 hover:text-white hover:border-white transition-all w-fit pb-1 mono">Read more ↗</a>
+                </div>
+
+                <div class="bg-zinc-950 p-8 border border-zinc-800 hover:border-amber-500/50 transition-all duration-300 group flex flex-col justify-between relative overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-amber-500/10 text-amber-500 text-[10px] mono px-3 py-1 uppercase tracking-widest border-b border-l border-amber-500/20">
+                        1st Runner-Up
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-bold mb-4">TagEdu: Vietnam</h3>
+                        <p class="text-zinc-400 text-sm mb-6 leading-relaxed">Developed a scalable AI education strategy to bridge the digital divide for K-12 students in provincial Vietnam through culturally localized UI/UX design.</p>
+                        <div class="flex flex-wrap gap-2 mb-8 mono text-[10px] text-zinc-500 uppercase tracking-wider">
+                            <span class="border border-zinc-800 px-2 py-1">UI/UX</span>
+                            <span class="border border-zinc-800 px-2 py-1">Design Thinking</span>
+                            <span class="border border-zinc-800 px-2 py-1">Figma</span>
+                        </div>
+                    </div>
+                    <a href="hcm.html" class="text-sm border-b border-zinc-700 hover:text-white hover:border-white transition-all w-fit pb-1 mono">Read more ↗</a>
+                </div>
+
+                <div class="bg-zinc-950 p-8 border border-zinc-800 hover:border-purple-500/50 transition-all duration-300 group flex flex-col justify-between">
+                    <div>
+                        <h3 class="text-2xl font-bold mb-4">What The Hack: 2025</h3>
+                        <p class="text-zinc-400 text-sm mb-6 leading-relaxed">Built a "moving duck" alarm clock during a 48-hour sprint. Combines synchronized servo control with a Telegram Bot API for a persistent wake-up solution.</p>
+                        <div class="flex flex-wrap gap-2 mb-8 mono text-[10px] text-zinc-500 uppercase tracking-wider">
+                            <span class="border border-zinc-800 px-2 py-1">IoT</span>
+                            <span class="border border-zinc-800 px-2 py-1">Mechanical Design</span>
+                            <span class="border border-zinc-800 px-2 py-1">Telegram API</span>
+                        </div>
+                    </div>
+                    <a href="hackuccino.html" class="text-sm border-b border-zinc-700 hover:text-white hover:border-white transition-all w-fit pb-1 mono">Read more ↗</a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="skills" class="fullscreen-section px-6 border-t border-zinc-800">
+        <div class="max-w-6xl mx-auto w-full">
+            <h2 class="text-3xl font-bold mb-12 text-zinc-400 uppercase tracking-widest mono text-sm">/ Core Competencies</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div>
+                    <h3 class="text-xl text-zinc-500 mb-6 mono">Hardware_</h3>
+                    <ul class="space-y-6">
+                        <li><span class="font-bold">PCB Design & EDA:</span> <span class="text-zinc-400">KiCad for schematic capture and footprint design.</span></li>
+                        <li><span class="font-bold">3D Modeling:</span> <span class="text-zinc-400">Autodesk Fusion 360 and Twinmotion for functional parts and aesthetic renders.</span></li>
+                        <li><span class="font-bold">Rapid Prototyping:</span> <span class="text-zinc-400">FDM 3D Printing specializing in material optimization (PLA, PETG).</span></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl text-zinc-500 mb-6 mono">Software_</h3>
+                    <ul class="space-y-6">
+                        <li><span class="font-bold">Core Languages:</span> <span class="text-zinc-400">Python (Data Pipelines), C++ (Embedded Systems), R (Statistical Analysis).</span></li>
+                        <li><span class="font-bold">Machine Learning:</span> <span class="text-zinc-400">Fine-tuning LLMs using QLoRA and Unsloth for memory-efficient model adaptation.</span></li>
+                        <li><span class="font-bold">Data Systems:</span> <span class="text-zinc-400">Dataset processing for AI training and maintaining robust project architectures.</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="timeline" class="fullscreen-section px-6 bg-zinc-950 border-t border-zinc-800">
+        <div class="max-w-4xl mx-auto w-full">
+            <h2 class="text-3xl font-bold mb-12 text-zinc-400 uppercase tracking-widest mono text-sm">/ Academic Roadmap</h2>
+            
+            <div class="space-y-16 border-l border-zinc-800 pl-8 relative">
+                
+                <div class="relative">
+                    <div class="absolute -left-[41px] top-1 w-4 h-4 bg-blue-500 rounded-full border-4 border-zinc-950 shadow-[0_0_10px_rgba(59,130,246,0.5)]"></div>
+                    <h3 class="text-xl font-bold">EPD Specialization</h3>
+                    <p class="text-zinc-500 mono text-xs mb-3">Term 3 — Term 5 (Current)</p>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <p class="text-zinc-500 mono text-[10px] uppercase mb-2">Term 4 Coursework</p>
+                            <div class="flex gap-2 flex-wrap text-[10px] mono">
+                                <a href="https://www.sutd.edu.sg/course/02-137dh-introduction-to-digital-humanities/" title="Digital Humanities" class="text-zinc-400 hover:text-blue-400 border border-zinc-800 px-2 py-1 transition">02.137DH</a>
+                                <a href="https://www.sutd.edu.sg/course/30-001-structures-materials/" title="Structures and Materials" class="text-zinc-400 hover:text-blue-400 border border-zinc-800 px-2 py-1 transition">30.001</a>
+                                <a href="https://www.sutd.edu.sg/course/30-002-circuits-electronics/" title="Circuits and Electronics" class="text-zinc-400 hover:text-blue-400 border border-zinc-800 px-2 py-1 transition">30.002</a>
+                                <a href="https://www.sutd.edu.sg/course/30-100-computational-and-data-driven-engineering/" title="Computational and Data-Driven Engineering" class="text-zinc-400 hover:text-blue-400 border border-zinc-800 px-2 py-1 transition">30.100</a>
+                            </div>
+                        </div>
+
+                        <div>
+                            <p class="text-zinc-500 mono text-[10px] uppercase mb-2">Term 3 Coursework</p>
+                            <div class="flex gap-2 flex-wrap text-[10px] mono">
+                                <a href="https://www.sutd.edu.sg/course/01-020-design-thinking-project-iii/" title="Design Thinking Project III" class="text-zinc-400 hover:text-blue-400 border border-zinc-800 px-2 py-1 transition">01.020</a>
+                                <a href="https://www.sutd.edu.sg/course/02-001-global-humanities-literature-philosophy-and-ethics/" title="HASS: Global Humanities: Literature, Philosophy, and Ethics" class="text-zinc-400 hover:text-blue-400 border border-zinc-800 px-2 py-1 transition">02.001</a>
+                                <a href="https://www.sutd.edu.sg/course/10-020-data-driven-world-elective/" title="Data Driven World" class="text-zinc-400 hover:text-blue-400 border border-zinc-800 px-2 py-1 transition">10.020</a>
+                                <a href="https://www.sutd.edu.sg/course/10-022-modelling-uncertainty/" title="Modelling Uncertainty" class="text-zinc-400 hover:text-blue-400 border border-zinc-800 px-2 py-1 transition">10.022</a>
+                                <a href="https://www.sutd.edu.sg/course/10-023-designing-energy-systems-elective/" title="Designing Energy Systems" class="text-zinc-400 hover:text-blue-400 border border-zinc-800 px-2 py-1 transition">10.023</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="relative">
+                    <div class="absolute -left-[41px] top-1 w-4 h-4 bg-zinc-700 rounded-full border-4 border-zinc-950"></div>
+                    <h3 class="text-xl font-bold">Freshmore Foundation</h3>
+                    <p class="text-zinc-400 text-sm leading-relaxed mb-6">Interdisciplinary foundation in modeling and analytical thinking.</p>
+                    
+                    <div class="space-y-6">
+                        <div>
+                            <p class="text-zinc-500 mono text-[10px] uppercase mb-2">Term 2 Coursework</p>
+                            <div class="flex gap-2 flex-wrap text-[10px] mono">
+                                
+                                <a href="https://www.sutd.edu.sg/course/10-016-science-for-a-sustainable-world/" title="Science for a Sustainable World" class="text-zinc-600 hover:text-white border border-zinc-900 px-2 py-1 transition">10.016</a>
+                                <a href="https://www.sutd.edu.sg/course/10-017-technological-world/" title="Technological World" class="text-zinc-600 hover:text-white border border-zinc-900 px-2 py-1 transition">10.017</a>
+                                 <a href="https://www.sutd.edu.sg/course/10-018-modelling-space-and-systems/" title="Modelling Space and Systems" class="text-zinc-600 hover:text-white border border-zinc-900 px-2 py-1 transition">10.018</a>  
+                                <a href="https://www.sutd.edu.sg/course/03-007-design-thinking-and-innovation" title="Design Thinking and Innovation" class="text-zinc-600 hover:text-white border border-zinc-900 px-2 py-1 transition">03.007</a>
+                                <a href="https://www.sutd.edu.sg/course/01-019-design-thinking-project-ii/" title="Design Thinking Project II" class="text-zinc-600 hover:text-white border border-zinc-900 px-2 py-1 transition">01.019</a>
+                            </div>
+                        </div>
+
+                        <div>
+                            <p class="text-zinc-500 mono text-[10px] uppercase mb-2">Term 1 Coursework</p>
+                            <div class="flex gap-2 flex-wrap text-[10px] mono">
+                                <a href="https://www.sutd.edu.sg/course/10-013-modelling-and-analysis/" title="Modelling and Analysis" class="text-zinc-600 hover:text-white border border-zinc-900 px-2 py-1 transition">10.013</a>
+                                <a href="https://www.sutd.edu.sg/course/10-015-physical-world/" title="Physical World" class="text-zinc-600 hover:text-white border border-zinc-900 px-2 py-1 transition">10.015</a>
+                                <a href="https://www.sutd.edu.sg/course/10-025-computational-thinking-for-design/" title="Computational Thinking for Design" class="text-zinc-600 hover:text-white border border-zinc-900 px-2 py-1 transition">10.025</a>
+                                <a href="https://www.sutd.edu.sg/course/02-003-social-science-understanding-behaviour-culture-society/" title="HASS: Social Science: Understanding Behaviour, Culture & Society" class="text-zinc-600 hover:text-white border border-zinc-900 px-2 py-1 transition">02.003</a>
+                                <a href="https://www.sutd.edu.sg/course/01-018-design-thinking-project-i/" title="Design Thinking Project I" class="text-zinc-600 hover:text-white border border-zinc-900 px-2 py-1 transition">01.018</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="relative pt-8 border-t border-zinc-900">
+                    <div class="absolute -left-[41px] top-9 w-4 h-4 bg-zinc-900 rounded-full border-4 border-zinc-950"></div>
+                    <h3 class="text-lg font-bold text-zinc-500">Junior College / Secondary</h3>
+                    <p class="text-zinc-600 text-sm italic leading-relaxed">GCE A-Level / O-Level Background in Science and Mathematics.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="fullscreen-section px-6 bg-zinc-900 border-t border-zinc-800">
+        <div class="max-w-md mx-auto w-full text-center">
+            <h2 class="text-3xl font-bold mb-8">Contact Me</h2>
+            <div class="space-y-4">
+                <a href="https://www.linkedin.com/in/ming-xiang" target="_blank" class="block w-full bg-zinc-800 hover:bg-zinc-700 p-4 rounded text-left transition flex items-center justify-between group">
+                    <span class="text-zinc-400 group-hover:text-white">LinkedIn</span>
+                    <span class="mono text-sm">/in/ming-xiang ↗</span>
+                </a>
+                <a href="mailto:mingxiang798@gmail.com" class="block w-full bg-zinc-800 hover:bg-zinc-700 p-4 rounded text-left transition flex items-center justify-between group">
+                    <span class="text-zinc-400 group-hover:text-white">Email (Personal)</span>
+                    <span class="mono text-sm">mingxiang798@gmail.com ↗</span>
+                </a>
+                <a href="mailto:1008912@mymail.sutd.edu.sg" class="block w-full bg-zinc-800 hover:bg-zinc-700 p-4 rounded text-left transition flex items-center justify-between group">
+                    <span class="text-zinc-400 group-hover:text-white">Email (SUTD)</span>
+                    <span class="mono text-sm">1008912@mymail.sutd.edu.sg ↗</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>

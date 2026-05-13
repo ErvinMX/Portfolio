@@ -6,125 +6,160 @@
     <title>I Cam'See | Project Details</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        .mono { font-family: 'Courier New', Courier, monospace; }
+        /* Shared Blue Laboratory Styles */
+        body { background-color: #020617; color: #d4d4d8; font-family: 'JetBrains Mono', monospace; }
+        
+        .vector-grid {
+            background-image: radial-gradient(circle at 2px 2px, rgba(59, 130, 246, 0.05) 1px, transparent 0);
+            background-size: 40px 40px;
+        }
+    
+        /* Hologram Image Filter */
+        .image-tint-container { background-color: #020617; position: relative; overflow: hidden; border: 1px solid rgba(59, 130, 246, 0.1); }
+        .image-tint-container::after {
+            content: ""; position: absolute; inset: 0;
+            background: linear-gradient(rgba(59, 130, 246, 0.08) 50%, transparent 50%);
+            background-size: 100% 2px; z-index: 2; pointer-events: none;
+        }
+        .image-tint-container img, .image-tint-container iframe {
+            filter: grayscale(100%) brightness(0.8) contrast(1.2) sepia(100%) hue-rotate(190deg) saturate(300%);
+            opacity: 0.5; transition: all 0.7s ease;
+        }
+        .image-tint-container:hover img, .image-tint-container:hover iframe {
+            filter: grayscale(0%) brightness(1) contrast(1) sepia(0%) saturate(100%);
+            opacity: 1; transform: scale(1.05);
+        }
+    
+        .hud-card {
+            background: rgba(9, 9, 11, 0.4);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(59, 130, 246, 0.1);
+        }
+
+        .corner-brace { position: relative; }
+        .corner-brace::before, .corner-brace::after {
+            content: ""; position: absolute; width: 10px; height: 10px; border-color: rgba(59, 130, 246, 0.3); border-style: solid; pointer-events: none;
+        }
+        .corner-brace::before { top: 0; left: 0; border-width: 1px 0 0 1px; }
+        .corner-brace::after { bottom: 0; right: 0; border-width: 0 1px 1px 0; }
     </style>
 </head>
-<body class="bg-zinc-950 text-gray-100 antialiased selection:bg-blue-500 selection:text-white">
+<body class="vector-grid min-h-screen antialiased selection:bg-blue-500 selection:text-white">
 
-    <nav class="w-full bg-zinc-950/80 backdrop-blur-md z-50 border-b border-zinc-800 sticky top-0">
+    <nav class="w-full bg-zinc-950/20 backdrop-blur-md z-50 border-b border-zinc-900 sticky top-0">
         <div class="max-w-4xl mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="../index.html" class="text-zinc-400 hover:text-white transition mono text-sm">← Back to Portfolio</a>
+            <a href="../index.html" class="text-zinc-500 hover:text-white transition mono text-sm">← Back to Portfolio</a>
         </div>
     </nav>
 
     <main class="max-w-4xl mx-auto px-6 py-16">
         
         <header class="mb-16">
-            <h1 class="text-5xl font-bold tracking-tighter mb-4">I Cam'See</h1>
-            <p class="text-xl text-zinc-400 mono">IoT-Integrated Camera System for Classroom Accessibility</p>
+            <h1 class="text-5xl font-bold tracking-tighter mb-4 text-white uppercase">I Cam'See</h1>
+            <p class="text-xl text-blue-400 mono">IoT-Integrated Camera System for Classroom Accessibility</p>
         </header>
 
-        <section class="mb-16 border-l border-zinc-800 pl-6">
-            <h2 class="text-2xl font-bold mb-4">Project Overview</h2>
-            <p class="text-zinc-300 leading-relaxed mb-8">
+        <section class="mb-16 border-l-2 border-blue-500 pl-6 hud-card p-8 corner-brace">
+            <h2 class="text-2xl font-bold mb-4 text-white uppercase mono text-sm">/ Project Overview</h2>
+            <p class="text-zinc-400 leading-relaxed mb-8">
                 Developed an IoT-integrated camera system designed to improve classroom accessibility. The project focused on creating a smart classroom environment where hardware placement and digital simulations bridged the gap between physical spaces and student utility.
             </p>
             
-            <div class="w-full aspect-video bg-zinc-900 rounded border border-zinc-800 overflow-hidden shadow-lg">
+            <div class="w-full aspect-video image-tint-container rounded-sm border border-blue-500/30">
                 <iframe width="100%" height="100%" src="https://www.youtube.com/embed/gLIldurclB4" title="I Cam'See Product Pitch" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
         </section>
 
         <section class="mb-16 space-y-8">
-            <div class="w-full bg-zinc-900 rounded border border-zinc-800 overflow-hidden shadow-lg">
-                <img src="../images/projectposterIcamsee.jpeg" alt="I Cam'See Project Poster 1" class="w-full h-auto object-cover hover:opacity-90 transition">
+            <div class="w-full image-tint-container rounded-sm border border-blue-500/20">
+                <img src="../images/projectposterIcamsee.jpeg" alt="I Cam'See Project Poster 1" class="w-full h-auto object-cover">
             </div>
-            <div class="w-full bg-zinc-900 rounded border border-zinc-800 overflow-hidden shadow-lg">
-                <img src="../images/Projectposter2.png" alt="I Cam'See Project Poster 2" class="w-full h-auto object-cover hover:opacity-90 transition">
+            <div class="w-full image-tint-container rounded-sm border border-blue-500/20">
+                <img src="../images/Projectposter2.png" alt="I Cam'See Project Poster 2" class="w-full h-auto object-cover">
             </div>
         </section>
 
         <section class="mb-16">
-            <h2 class="text-2xl font-bold mb-6">Key Features</h2>
+            <h2 class="text-2xl font-bold mb-6 text-white uppercase mono text-sm">/ Key Features</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="bg-zinc-900 p-6 rounded border border-zinc-800 hover:border-zinc-600 transition">
-                    <h3 class="font-bold text-lg mb-2 text-white">Articulated Camera Control</h3>
-                    <p class="text-zinc-400 text-sm">Integrated pan and tilt motors allow for precise field-of-view adjustments, featuring horizontal rotation (0° to 180°) and vertical tilt (0° to 90°).</p>
+                <div class="hud-card p-6 border-t-2 border-t-blue-500 hover:border-blue-400 transition">
+                    <h3 class="font-bold text-lg mb-2 text-white mono uppercase text-xs">Articulated Camera Control</h3>
+                    <p class="text-zinc-400 text-[11px] leading-relaxed">Integrated pan and tilt motors allow for precise field-of-view adjustments, featuring horizontal rotation (0° to 180°) and vertical tilt (0° to 90°).</p>
                 </div>
-                <div class="bg-zinc-900 p-6 rounded border border-zinc-800 hover:border-zinc-600 transition">
-                    <h3 class="font-bold text-lg mb-2 text-white">Modular Hook System</h3>
-                    <p class="text-zinc-400 text-sm">A custom-designed mount that can be easily repositioned along the classroom's existing ceiling tube tracks to optimize placement and bypass obstructions.</p>
+                <div class="hud-card p-6 border-t-2 border-t-blue-500 hover:border-blue-400 transition">
+                    <h3 class="font-bold text-lg mb-2 text-white mono uppercase text-xs">Modular Hook System</h3>
+                    <p class="text-zinc-400 text-[11px] leading-relaxed">A custom-designed mount that can be easily repositioned along the classroom's existing ceiling tube tracks to optimize placement and bypass obstructions.</p>
                 </div>
-                <div class="bg-zinc-900 p-6 rounded border border-zinc-800 hover:border-zinc-600 transition">
-                    <h3 class="font-bold text-lg mb-2 text-white">Live Footage Streaming</h3>
-                    <p class="text-zinc-400 text-sm">Real-time digital replication of handwritten whiteboard content, streamed directly to a frontend interface on students' personal devices.</p>
+                <div class="hud-card p-6 border-t-2 border-t-blue-500 hover:border-blue-400 transition">
+                    <h3 class="font-bold text-lg mb-2 text-white mono uppercase text-xs">Live Footage Streaming</h3>
+                    <p class="text-zinc-400 text-[11px] leading-relaxed">Real-time digital replication of handwritten whiteboard content, streamed directly to a frontend interface on students' personal devices.</p>
                 </div>
-                <div class="bg-zinc-900 p-6 rounded border border-zinc-800 hover:border-zinc-600 transition">
-                    <h3 class="font-bold text-lg mb-2 text-white">Raspberry Pi 5 Architecture</h3>
-                    <p class="text-zinc-400 text-sm">Custom 3D-printed casing housing a Raspberry Pi backend that seamlessly manages both the video stream encoding and the mechanical servo movements.</p>
+                <div class="hud-card p-6 border-t-2 border-t-blue-500 hover:border-blue-400 transition">
+                    <h3 class="font-bold text-lg mb-2 text-white mono uppercase text-xs">Raspberry Pi 5 Architecture</h3>
+                    <p class="text-zinc-400 text-[11px] leading-relaxed">Custom 3D-printed casing housing a Raspberry Pi backend that seamlessly manages both the video stream encoding and the mechanical servo movements.</p>
                 </div>
             </div>
         </section>
 
-        <section class="mb-16">
-            <h2 class="text-2xl font-bold mb-6">Physical Prototyping</h2>
-            <p class="text-zinc-400 mb-8 leading-relaxed">
+        <section class="mb-16 hud-card p-8 corner-brace">
+            <h2 class="text-2xl font-bold mb-6 text-white uppercase mono text-sm">/ Physical Prototyping</h2>
+            <p class="text-zinc-400 mb-8 leading-relaxed text-sm">
                 Iterative physical assemblies showcasing the custom modular mount and the Raspberry Pi-driven articulated camera system.
             </p>
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="bg-zinc-900 rounded border border-zinc-800 overflow-hidden shadow-lg aspect-square relative group">
-                    <img src="../images/DTI_prototype1.jpg" alt="I Cam'See Physical Assembly - Detail View" class="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-105">
+                <div class="image-tint-container aspect-square rounded-sm border border-blue-500/20">
+                    <img src="../images/DTI_prototype1.jpg" alt="I Cam'See Physical Assembly - Detail View" class="w-full h-full object-cover">
                 </div>
 
-                <div class="bg-zinc-900 rounded border border-zinc-800 overflow-hidden shadow-lg aspect-square relative group">
-                    <img src="../images/DTI_prototype2.jpg" alt="I Cam'See Physical Assembly - Mount Detail" class="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-105">
+                <div class="image-tint-container aspect-square rounded-sm border border-blue-500/20">
+                    <img src="../images/DTI_prototype2.jpg" alt="I Cam'See Physical Assembly - Mount Detail" class="w-full h-full object-cover">
                 </div>
             </div>
         </section>
 
-        <section class="mb-16">
-            <h2 class="text-2xl font-bold mb-6">My Contributions</h2>
-            <p class="text-zinc-300 mb-8">
+        <section class="mb-16 hud-card p-8 corner-brace">
+            <h2 class="text-2xl font-bold mb-6 text-blue-400 uppercase mono text-sm">/ My Contributions</h2>
+            <p class="text-zinc-400 mb-8 text-sm">
                 As the Lead for 3D Modeling and Visualization, I was responsible for the end-to-end digital twin creation and environmental simulation.
             </p>
             
             <div class="space-y-16">
                 <div>
-                    <h3 class="text-xl font-bold mb-2 text-blue-400">01. Primary 3D Modeler</h3>
-                    <p class="text-zinc-400 mb-6">Designed the full-scale classroom environment in Autodesk Fusion, facilitating spatial analysis for optimal hardware placement.</p>
-                    <div class="w-full bg-zinc-900 rounded border border-zinc-800 overflow-hidden shadow-lg">
-                        <img src="../images/image_f068ce.png" alt="Fusion 360 Classroom Model" class="w-full h-auto object-cover hover:opacity-90 transition">
+                    <h3 class="text-sm font-bold mb-2 text-blue-400 mono uppercase flex items-center gap-2"><span class="w-1.5 h-1.5 bg-blue-500"></span> 01. Primary 3D Modeler</h3>
+                    <p class="text-zinc-400 mb-6 text-[11px] leading-relaxed">Designed the full-scale classroom environment in Autodesk Fusion, facilitating spatial analysis for optimal hardware placement.</p>
+                    <div class="w-full image-tint-container rounded-sm border border-blue-500/20">
+                        <img src="../images/image_f068ce.png" alt="Fusion 360 Classroom Model" class="w-full h-auto object-cover">
                     </div>
                 </div>
 
                 <div>
-                    <h3 class="text-xl font-bold mb-2 text-blue-400">02. Visualization & Rendering</h3>
-                    <p class="text-zinc-400 mb-6">Produced high-fidelity Twinmotion renders and cinematic video walkthroughs to demonstrate system utility and validate camera placements.</p>
-                    <div class="w-full aspect-video bg-zinc-900 rounded border border-zinc-800 overflow-hidden shadow-lg">
+                    <h3 class="text-sm font-bold mb-2 text-blue-400 mono uppercase flex items-center gap-2"><span class="w-1.5 h-1.5 bg-blue-500"></span> 02. Visualization & Rendering</h3>
+                    <p class="text-zinc-400 mb-6 text-[11px] leading-relaxed">Produced high-fidelity Twinmotion renders and cinematic video walkthroughs to demonstrate system utility and validate camera placements.</p>
+                    <div class="w-full aspect-video image-tint-container rounded-sm border border-blue-500/20">
                         <iframe width="100%" height="100%" src="https://www.youtube.com/embed/HP9hBbvgEAc" title="I Cam'See Cinematic Walkthrough" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     </div>
                 </div>
                 
-                <div>
-                    <h3 class="text-xl font-bold mb-2 text-blue-400">03. Holistic Project Support</h3>
-                    <p class="text-zinc-400 mb-4">Collaborated on technical documentation, poster design, and system architecture to ensure a cohesive final submission.</p>
+                <div class="p-6 border border-zinc-800 bg-zinc-900/30">
+                    <h3 class="text-sm font-bold mb-2 text-blue-400 mono uppercase flex items-center gap-2"><span class="w-1.5 h-1.5 bg-blue-500"></span> 03. Holistic Project Support</h3>
+                    <p class="text-zinc-400 text-[11px] leading-relaxed">Collaborated on technical documentation, poster design, and system architecture to ensure a cohesive final submission.</p>
                 </div>
             </div>
         </section>
 
-        <section class="mb-16 pt-16 border-t border-zinc-800">
-            <h2 class="text-2xl font-bold mb-6">Team & Credits</h2>
-            <div class="flex flex-col md:flex-row gap-8 items-center bg-zinc-900/50 p-6 rounded border border-zinc-800">
-                <div class="w-full md:w-1/2 overflow-hidden rounded border border-zinc-700 shadow-lg">
+        <section class="mb-16 pt-16">
+            <h2 class="text-2xl font-bold mb-6 text-white uppercase mono text-sm">/ Team & Credits</h2>
+            <div class="flex flex-col md:flex-row gap-8 items-center hud-card p-6 corner-brace">
+                <div class="w-full md:w-1/2 image-tint-container rounded-sm border border-blue-500/20">
                     <img src="../images/image_f06c73.jpg" alt="I Cam'See Team Showcase" class="w-full h-auto object-cover">
                 </div>
                 <div class="w-full md:w-1/2">
-                    <p class="text-zinc-300 italic leading-relaxed mb-6">
+                    <p class="text-zinc-400 italic leading-relaxed mb-6 text-sm">
                         "The 'I Cam'See' development team during the final project showcase. On display are our physical 3D-printed prototypes, including the iterative designs of the modular ceiling mounts."
                     </p>
-                    <div class="mono text-xs text-zinc-500 uppercase tracking-widest border-t border-zinc-800 pt-4">
-                        <p class="mb-2 text-zinc-400">Project Team Members:</p>
+                    <div class="mono text-[10px] text-zinc-500 uppercase tracking-widest border-t border-zinc-800 pt-4">
+                        <p class="mb-2 text-blue-400">Project Team Members:</p>
                         <ul class="space-y-1">
                             <li>Wang MinXing</li>
                             <li>Nicholas Lukman</li>

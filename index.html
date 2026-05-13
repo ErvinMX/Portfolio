@@ -5,41 +5,170 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ming | Engineering Portfolio</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     
     <style>
-        .mono { font-family: 'JetBrains Mono', 'IBM Plex Mono', 'Courier New', monospace; }
+        .mono { font-family: 'JetBrains Mono', 'IBM Plex Mono', monospace; }
     
-        .fullscreen-section { 
-            min-height: 100vh; 
-            display: flex; 
-            flex-direction: column; 
-            justify-content: center; 
-        }
-    
-        .engineering-grid {
-            background-color: #09090b;
-            background-image: radial-gradient(circle, #3f3f46 1px, transparent 1px);
-            background-size: 40px 40px;
+        /* 1. The HUD Background & Ambient Glows */
+        .futuristic-bg {
+            background-color: #020617; /* Deepest Midnight Blue */
+            background-image: 
+                radial-gradient(circle at 0% 0%, rgba(59, 130, 246, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 100% 100%, rgba(59, 130, 246, 0.05) 0%, transparent 50%);
             background-attachment: fixed;
         }
-    
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: #09090b; }
-        ::-webkit-scrollbar-thumb { 
-            background: #27272a; 
-            border-radius: 10px; 
-            transition: background 0.3s ease;
+
+        /* 2. Interactive "Vector" Grid */
+        .vector-grid {
+            background-image: 
+                linear-gradient(to right, rgba(255,255,255,0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            background-attachment: fixed;
         }
-        ::-webkit-scrollbar-thumb:hover { background: #3b82f6; }
-    
-        ::selection {
-            background: rgba(59, 130, 246, 0.2);
-            color: #60a5fa;
+
+        /* 1. Glass HUD Card Base */
+        .hud-card {
+            background: rgba(9, 9, 11, 0.4);
+            backdrop-filter: blur(12px) saturate(180%);
+            border: 1px solid rgba(59, 130, 246, 0.1);
+            transition: all 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+            position: relative;
+        }
+
+        .hud-card:hover {
+            background: rgba(59, 130, 246, 0.05);
+            border-color: rgba(59, 130, 246, 0.5);
+            box-shadow: 0 0 40px rgba(59, 130, 246, 0.1);
+        }
+
+        /* 1. The Hologram Container */
+        .image-tint-container {
+            background-color: #020617; /* Matches your background */
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* 2. The Interactive Overlay (The "Blueprint" lines on the image) */
+        .image-tint-container::after {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            /* Fine horizontal lines to make it look like a CRT/Digital scan */
+            background: linear-gradient(rgba(59, 130, 246, 0.05) 50%, transparent 50%);
+            background-size: 100% 2px;
+            z-index: 2;
+            pointer-events: none;
+            opacity: 0.5;
+        }
+
+        /* 3. The Image: Brighter and Sharper before hover */
+        .image-tint-container img {
+            /* Changed from multiply to luminosity + opacity for a "Ghost" effect */
+            filter: grayscale(100%) brightness(0.8) contrast(1.2) sepia(100%) hue-rotate(190deg) saturate(300%);
+            opacity: 0.4; 
+            transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* 4. Hover State: Clear and Vibrant */
+        .hud-card:hover img {
+            filter: grayscale(0%) brightness(1) contrast(1) sepia(0%) saturate(100%);
+            opacity: 1;
+            transform: scale(1.05);
+        }
+
+        /* 3. Corner Brackets (Viewfinder Effect) */
+        .corner-brace::before, .corner-brace::after {
+            content: "";
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-color: rgba(59, 130, 246, 0.3);
+            border-style: solid;
+            pointer-events: none;
+            transition: all 0.4s ease;
+        }
+
+        /* Top Left */
+        .corner-brace::before { top: 0; left: 0; border-width: 1px 0 0 1px; }
+        /* Bottom Right */
+        .corner-brace::after { bottom: 0; right: 0; border-width: 0 1px 1px 0; }
+
+        .hud-card:hover .corner-brace::before,
+        .hud-card:hover .corner-brace::after {
+            border-color: #3b82f6;
+            width: 20px;
+            height: 20px;
+        }
+
+        /* 4. The "Scanline" Effect (Futuristic Overlay) */
+        .scanlines::after {
+            content: " ";
+            display: block;
+            position: fixed;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%), 
+                        linear-gradient(90deg, rgba(255, 0, 0, 0.02), rgba(0, 255, 0, 0.01), rgba(0, 0, 0, 0.02));
+            background-size: 100% 4px, 3px 100%;
+            pointer-events: none;
+            z-index: 100;
+            opacity: 0.3;
+        }
+
+        .fullscreen-section { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; }
+
+        /* 1. Custom HUD Tooltip Logic */
+        .hud-tooltip {
+            position: relative;
+        }
+
+        .hud-tooltip::after {
+            content: attr(data-tip); /* Pulls text from the data-tip attribute */
+            position: absolute;
+            bottom: 140%; /* Position above the tag */
+            left: 50%;
+            transform: translateX(-50%) translateY(5px);
+            background: #1e3a8a; /* Deep blue background */
+            color: #60a5fa; /* Bright blue text */
+            padding: 4px 10px;
+            border: 1px solid rgba(59, 130, 246, 0.5);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 100;
+            box-shadow: 0 0 15px rgba(30, 58, 138, 0.5);
+        }
+
+        /* 2. The "Noticeable" Hover State */
+        .hud-tooltip:hover::after {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* 3. Small pointer arrow for the tooltip */
+        .hud-tooltip::before {
+            content: "";
+            position: absolute;
+            bottom: 120%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 5px solid transparent;
+            border-top-color: rgba(59, 130, 246, 0.5);
+            opacity: 0;
+            transition: opacity 0.15s ease;
+        }
+
+        .hud-tooltip:hover::before {
+            opacity: 1;
         }
     </style>
 </head>
 
-<body class="text-gray-100 antialiased engineering-grid selection:bg-blue-500/30">
+<body class="text-gray-100 antialiased futuristic-bg vector-grid scanlines selection:bg-blue-500/30">
 
     <nav class="fixed top-0 w-full bg-zinc-950/80 backdrop-blur-md z-50 border-b border-zinc-800">
         <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
@@ -53,121 +182,127 @@
         </div>
     </nav>
 
-    <section id="hero" class="fullscreen-section px-6 relative bg-transparent">
-        <div class="max-w-6xl mx-auto w-full">
-            <h1 class="text-6xl md:text-7xl font-bold tracking-tighter mb-6">
-                Hi 👋,<br><span class="text-zinc-500">I am </span>Sng Ming Xiang.
-            </h1>
-            <p class="text-xl text-zinc-400 max-w-2xl mb-10 leading-relaxed">
-                An Engineering Product Development student at SUTD. I focus on the intersection of hardware/electronics and software, bridging the gap between digital simulations and physical hardware.
-            </p>
-            <div class="flex flex-wrap gap-4 mono text-sm">
-                <a href="#projects" class="bg-white text-black px-6 py-3 hover:bg-gray-200 transition">View Works</a>
-                <a href="assets/SngMingXiang_CV copy.pdf" target="_blank" class="border border-zinc-500 text-white px-6 py-3 hover:bg-zinc-800 transition">Download CV ↓</a>
-                <a href="https://github.com/ErvinMX" target="_blank" class="border border-zinc-700 px-6 py-3 hover:bg-zinc-800 transition">GitHub ↗</a>
+    <section id="hero" class="fullscreen-section px-6 relative bg-transparent overflow-hidden">
+        <div class="max-w-6xl mx-auto w-full flex flex-col md:flex-row items-center relative z-10 gap-12">
+            
+            <div class="w-full md:w-1/2">
+                <h1 class="text-6xl md:text-7xl font-bold tracking-tighter mb-6">
+                    Hi 👋,<br><span class="text-zinc-500">I am </span>Sng Ming Xiang.
+                </h1>
+                <p class="text-xl text-zinc-400 mb-10 leading-relaxed">
+                    An Engineering Product Development student at SUTD. I focus on the intersection of hardware/electronics and software, bridging the gap between digital simulations and physical hardware.
+                </p>
+                <div class="flex flex-wrap gap-4 mono text-sm">
+                    <a href="#projects" class="bg-white text-black px-6 py-3 hover:bg-gray-200 transition">View Works</a>
+                    <a href="assets/SngMingXiang_CV copy.pdf" target="_blank" class="border border-zinc-500 text-white px-6 py-3 hover:bg-zinc-800 transition">Download CV ↓</a>
+                    <a href="https://github.com/ErvinMX" target="_blank" class="border border-zinc-700 px-6 py-3 hover:bg-zinc-800 transition">GitHub ↗</a>
+                </div>
             </div>
+
+            <div id="canvas-container" class="w-full md:w-1/2 h-[400px] md:h-[600px] cursor-crosshair"></div>
+            
         </div>
     </section>
-    
+
     <section id="projects" class="group/section fullscreen-section px-6 border-t border-zinc-800 bg-transparent py-20">
         <div class="max-w-6xl mx-auto w-full">
             <h2 class="text-3xl font-bold mb-12 text-zinc-500 group-hover/section:text-blue-400 transition-colors duration-500 uppercase tracking-widest mono text-sm flex items-center gap-4">
-                / Featured Projects 
+                / Project_Inventory
                 <span class="h-[1px] w-0 group-hover/section:w-20 bg-blue-500 transition-all duration-500"></span>
             </h2>
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 
-                <a href="pages/frankenstein.html" class="bg-zinc-950/50 backdrop-blur-sm border border-zinc-800 hover:border-zinc-600 transition-all duration-500 group flex flex-col relative overflow-hidden">
-                    <div class="w-full aspect-[4/3] overflow-hidden relative border-b border-zinc-800 bg-zinc-900">
-                        <img src="images/Rgraphs.png" alt="PCA Analysis Plot" class="w-full h-full object-cover transform transition-all duration-700 group-hover:scale-110 grayscale opacity-70 group-hover:grayscale-0 group-hover:opacity-100">
-                        <div class="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10">
-                            <span class="bg-zinc-950/90 backdrop-blur text-[10px] mono text-blue-500 border border-blue-500/30 px-2 py-1">VER_1.2_STABLE</span>
+                <a href="pages/frankenstein.html" class="hud-card group flex flex-col overflow-hidden corner-brace">
+                    <div class="w-full aspect-[4/3] image-tint-container border-b border-blue-500/10">
+                        <img src="images/Rgraphs.png" alt="PCA Analysis" class="w-full h-full object-cover opacity-70 group-hover:opacity-100">
+                        <div class="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                            <span class="bg-blue-500/20 backdrop-blur text-[10px] mono text-blue-400 border border-blue-500/30 px-2 py-1">ANALYSIS_MODE</span>
                         </div>
                     </div>
-                    <div class="p-6 flex flex-col flex-grow justify-between bg-zinc-950">
+                    <div class="p-6 flex flex-col flex-grow justify-between">
                         <div>
                             <h3 class="text-xl font-bold mb-3 text-zinc-100 group-hover:text-blue-400 transition-colors">Frankenstein Reimagined</h3>
-                            <p class="text-zinc-400 text-sm mb-6 leading-relaxed">Fine-tuning Llama 3.1-8B to replicate Mary Shelley's syntax, evaluated via PCA mapping.</p>
+                            <p class="text-zinc-400 text-sm mb-6 leading-relaxed">Llama 3.1 fine-tuning evaluated via PCA syntax mapping.</p>
                         </div>
                         <div class="mt-auto flex items-center justify-between">
-                            <span class="text-sm mono text-zinc-500 group-hover:text-white transition-colors">Read more</span>
+                            <span class="text-[10px] mono text-zinc-500 uppercase tracking-widest">Learn more</span>
                             <span class="text-zinc-600 group-hover:text-blue-400 transition-transform duration-300 group-hover:translate-x-1">→</span>
                         </div>
                     </div>
                 </a>
 
-                <a href="pages/ikimono.html" class="bg-zinc-950/50 backdrop-blur-sm border border-zinc-800 hover:border-zinc-600 transition-all duration-500 group flex flex-col relative overflow-hidden">
-                    <div class="w-full aspect-[4/3] overflow-hidden relative border-b border-zinc-800 bg-zinc-900">
-                        <img src="images/Mindfulmonkey.jpg" alt="Ikimono Wearable Prototype" class="w-full h-full object-cover transform transition-all duration-700 group-hover:scale-110 grayscale opacity-70 group-hover:grayscale-0 group-hover:opacity-100">
-                        <div class="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10">
-                            <span class="bg-zinc-950/90 backdrop-blur text-[10px] mono text-blue-500 border border-blue-500/30 px-2 py-1">VER_2.4_LIVE</span>
+                <a href="pages/ikimono.html" class="hud-card group flex flex-col overflow-hidden corner-brace">
+                    <div class="w-full aspect-[4/3] image-tint-container border-b border-blue-500/10">
+                        <img src="images/Mindfulmonkey.jpg" alt="Ikimono Prototype" class="w-full h-full object-cover opacity-70 group-hover:opacity-100">
+                        <div class="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                            <span class="bg-blue-500/20 backdrop-blur text-[10px] mono text-blue-400 border border-blue-500/30 px-2 py-1">HARDWARE_ACTIVE</span>
                         </div>
                     </div>
-                    <div class="p-6 flex flex-col flex-grow justify-between bg-zinc-950">
+                    <div class="p-6 flex flex-col flex-grow justify-between">
                         <div>
                             <h3 class="text-xl font-bold mb-3 text-zinc-100 group-hover:text-blue-400 transition-colors">Ikimono Wearable</h3>
-                            <p class="text-zinc-400 text-sm mb-6 leading-relaxed">ESP32 physiological sensing integrated with ML for real-time bio-feedback interventions.</p>
+                            <p class="text-zinc-400 text-sm mb-6 leading-relaxed">ESP32 physiological sensing and real-time bio-feedback.</p>
                         </div>
                         <div class="mt-auto flex items-center justify-between">
-                            <span class="text-sm mono text-zinc-500 group-hover:text-white transition-colors">Read more</span>
+                            <span class="text-[10px] mono text-zinc-500 uppercase tracking-widest">Learn more</span>
                             <span class="text-zinc-600 group-hover:text-blue-400 transition-transform duration-300 group-hover:translate-x-1">→</span>
                         </div>
                     </div>
                 </a>
 
-                <a href="pages/icamsee.html" class="bg-zinc-950/50 backdrop-blur-sm border border-zinc-800 hover:border-zinc-600 transition-all duration-500 group flex flex-col relative overflow-hidden">
-                    <div class="w-full aspect-[4/3] overflow-hidden relative border-b border-zinc-800 bg-zinc-900">
-                        <img src="images/ICamSeeimg.jpg" alt="I Cam'See CAD Render" class="w-full h-full object-cover transform transition-all duration-700 group-hover:scale-110 grayscale opacity-70 group-hover:grayscale-0 group-hover:opacity-100">
-                        <div class="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10">
-                            <span class="bg-zinc-950/90 backdrop-blur text-[10px] mono text-blue-500 border border-blue-500/30 px-2 py-1">SIM_V1.0</span>
+                <a href="pages/icamsee.html" class="hud-card group flex flex-col overflow-hidden corner-brace">
+                    <div class="w-full aspect-[4/3] image-tint-container border-b border-blue-500/10">
+                        <img src="images/ICamSeeimg.jpg" alt="I Cam'See CAD" class="w-full h-full object-cover opacity-70 group-hover:opacity-100">
+                        <div class="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                            <span class="bg-blue-500/20 backdrop-blur text-[10px] mono text-blue-400 border border-blue-500/30 px-2 py-1">SIM_ENABLED</span>
                         </div>
                     </div>
-                    <div class="p-6 flex flex-col flex-grow justify-between bg-zinc-950">
+                    <div class="p-6 flex flex-col flex-grow justify-between">
                         <div>
                             <h3 class="text-xl font-bold mb-3 text-zinc-100 group-hover:text-blue-400 transition-colors">I Cam'See</h3>
-                            <p class="text-zinc-400 text-sm mb-6 leading-relaxed">Inclusive classroom redesign using IoT camera systems and high-fidelity spatial simulations.</p>
+                            <p class="text-zinc-400 text-sm mb-6 leading-relaxed">Inclusive classroom redesign via IoT and spatial simulations.</p>
                         </div>
                         <div class="mt-auto flex items-center justify-between">
-                            <span class="text-sm mono text-zinc-500 group-hover:text-white transition-colors">Read more</span>
+                            <span class="text-[10px] mono text-zinc-500 uppercase tracking-widest">Learn more</span>
                             <span class="text-zinc-600 group-hover:text-blue-400 transition-transform duration-300 group-hover:translate-x-1">→</span>
                         </div>
                     </div>
                 </a>
 
-                <a href="pages/hcm.html" class="bg-zinc-950/50 backdrop-blur-sm border border-amber-900/50 hover:border-amber-500/50 transition-all duration-500 group flex flex-col relative overflow-hidden">
-                    <div class="w-full aspect-[4/3] overflow-hidden relative border-b border-zinc-800 bg-zinc-900">
-                        <img src="images/FigmaUEHimg.png" alt="TagEdu Figma Dashboard" class="w-full h-full object-cover transform transition-all duration-700 group-hover:scale-110 grayscale opacity-70 group-hover:grayscale-0 group-hover:opacity-100">
-                        <div class="absolute top-0 right-0 bg-amber-500 text-black font-bold text-[10px] mono px-3 py-1 uppercase tracking-widest z-10 shadow-lg">
-                            1st Runner-Up
+                <a href="pages/hcm.html" class="hud-card group flex flex-col overflow-hidden corner-brace">
+                    <div class="w-full aspect-[4/3] image-tint-container border-b border-amber-500/10">
+                        <img src="images/FigmaUEHimg.png" alt="TagEdu Dashboard" class="w-full h-full object-cover opacity-70 group-hover:opacity-100">
+                        <div class="absolute top-0 right-0 bg-amber-500 text-black font-bold text-[10px] mono px-3 py-1 uppercase tracking-widest z-10">
+                            AWARDED_RUNNER_UP
                         </div>
                     </div>
-                    <div class="p-6 flex flex-col flex-grow justify-between bg-zinc-950">
+                    <div class="p-6 flex flex-col flex-grow justify-between">
                         <div>
                             <h3 class="text-xl font-bold mb-3 text-zinc-100 group-hover:text-amber-500 transition-colors">TagEdu: Vietnam</h3>
-                            <p class="text-zinc-400 text-sm mb-6 leading-relaxed">AI education strategy bridging the digital divide for K-12 students through localized UI/UX.</p>
+                            <p class="text-zinc-400 text-sm mb-6 leading-relaxed">AI education strategy and localized UI/UX for K-12 students.</p>
                         </div>
                         <div class="mt-auto flex items-center justify-between">
-                            <span class="text-sm mono text-zinc-500 group-hover:text-white transition-colors">Read more</span>
+                            <span class="text-[10px] mono text-zinc-500 uppercase tracking-widest">Learn more</span>
                             <span class="text-zinc-600 group-hover:text-amber-500 transition-transform duration-300 group-hover:translate-x-1">→</span>
                         </div>
                     </div>
                 </a>
 
-                <a href="pages/hackuccino.html" class="bg-zinc-950/50 backdrop-blur-sm border border-zinc-800 hover:border-zinc-600 transition-all duration-500 group flex flex-col relative overflow-hidden">
-                    <div class="w-full aspect-[4/3] overflow-hidden relative border-b border-zinc-800 bg-zinc-900">
-                        <img src="images/Moving_Duck.jpg" alt="Moving Duck Robot" class="w-full h-full object-cover transform transition-all duration-700 group-hover:scale-110 grayscale opacity-70 group-hover:grayscale-0 group-hover:opacity-100">
-                        <div class="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10">
-                            <span class="bg-zinc-950/90 backdrop-blur text-[10px] mono text-blue-500 border border-blue-500/30 px-2 py-1">PROTOTYPE</span>
+                <a href="pages/hackuccino.html" class="hud-card group flex flex-col overflow-hidden corner-brace">
+                    <div class="w-full aspect-[4/3] image-tint-container border-b border-blue-500/10">
+                        <img src="images/Moving_Duck.jpg" alt="Moving Duck" class="w-full h-full object-cover opacity-70 group-hover:opacity-100">
+                        <div class="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                            <span class="bg-blue-500/20 backdrop-blur text-[10px] mono text-blue-400 border border-blue-500/30 px-2 py-1">SPRINT_READY</span>
                         </div>
                     </div>
-                    <div class="p-6 flex flex-col flex-grow justify-between bg-zinc-950">
+                    <div class="p-6 flex flex-col flex-grow justify-between">
                         <div>
                             <h3 class="text-xl font-bold mb-3 text-zinc-100 group-hover:text-blue-400 transition-colors">What The Hack: 2025</h3>
-                            <p class="text-zinc-400 text-sm mb-6 leading-relaxed">Built a "moving duck" alarm clock combining servo control with a Telegram Bot API in 48 hours.</p>
+                            <p class="text-zinc-400 text-sm mb-6 leading-relaxed">48-hour prototype: moving duck alarm with Telegram Bot integration.</p>
                         </div>
                         <div class="mt-auto flex items-center justify-between">
-                            <span class="text-sm mono text-zinc-500 group-hover:text-white transition-colors">Read more</span>
+                            <span class="text-[10px] mono text-zinc-500 uppercase tracking-widest">Learn more</span>
                             <span class="text-zinc-600 group-hover:text-blue-400 transition-transform duration-300 group-hover:translate-x-1">→</span>
                         </div>
                     </div>
@@ -177,124 +312,329 @@
         </div>
     </section>
 
-    <section id="skills" class="fullscreen-section px-6 border-t border-zinc-800">
-        <div class="max-w-6xl mx-auto w-full">
-            <h2 class="text-3xl font-bold mb-12 text-zinc-400 uppercase tracking-widest mono text-sm">/ Core Competencies</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
-                <div>
-                    <h3 class="text-xl text-zinc-500 mb-6 mono">Hardware_</h3>
-                    <ul class="space-y-6">
-                        <li><span class="font-bold">PCB Design & EDA:</span> <span class="text-zinc-400">KiCad for schematic capture and footprint design.</span></li>
-                        <li><span class="font-bold">3D Modeling:</span> <span class="text-zinc-400">Autodesk Fusion 360 and Twinmotion for functional parts and aesthetic renders.</span></li>
-                        <li><span class="font-bold">Rapid Prototyping:</span> <span class="text-zinc-400">FDM 3D Printing specializing in material optimization (PLA, PETG).</span></li>
-                    </ul>
-                </div>
-                <div>
-                    <h3 class="text-xl text-zinc-500 mb-6 mono">Software_</h3>
-                    <ul class="space-y-6">
-                        <li><span class="font-bold">Core Languages:</span> <span class="text-zinc-400">Python (Data Pipelines), C++ (Embedded Systems), R (Statistical Analysis).</span></li>
-                        <li><span class="font-bold">Machine Learning:</span> <span class="text-zinc-400">Fine-tuning LLMs using QLoRA and Unsloth for memory-efficient model adaptation.</span></li>
-                        <li><span class="font-bold">Data Systems:</span> <span class="text-zinc-400">Dataset processing for AI training and maintaining robust project architectures.</span></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="timeline" class="fullscreen-section px-6 bg-zinc-950 border-t border-zinc-800">
-        <div class="max-w-4xl mx-auto w-full">
-            <h2 class="text-3xl font-bold mb-12 text-zinc-400 uppercase tracking-widest mono text-sm">/ Academic Roadmap</h2>
+    <section id="skills" class="border-t border-zinc-800 bg-zinc-950/50">
+        <div class="max-w-6xl mx-auto w-full border-x border-zinc-800">
             
-            <div class="space-y-16 border-l border-zinc-800 pl-8 relative">
+            <div class="flex flex-col md:flex-row border-b border-zinc-800 relative">
                 
-                <div class="relative">
-                    <div class="absolute -left-[41px] top-1 w-4 h-4 bg-blue-500 rounded-full border-4 border-zinc-950 shadow-[0_0_10px_rgba(59,130,246,0.5)]"></div>
-                    <h3 class="text-xl font-bold">EPD Specialization</h3>
-                    <p class="text-zinc-500 mono text-xs mb-3">Term 3 — Term 5 (Current)</p>
-                    
-                    <div class="space-y-6">
-                        <div>
-                            <p class="text-zinc-500 mono text-[10px] uppercase mb-2">Term 4 Coursework</p>
-                            <div class="flex gap-2 flex-wrap text-[10px] mono">
-                                <a href="https://www.sutd.edu.sg/course/02-137dh-introduction-to-digital-humanities/" title="Digital Humanities" class="text-zinc-400 hover:text-blue-400 border border-zinc-800 px-2 py-1 transition">02.137DH</a>
-                                <a href="https://www.sutd.edu.sg/course/30-001-structures-materials/" title="Structures and Materials" class="text-zinc-400 hover:text-blue-400 border border-zinc-800 px-2 py-1 transition">30.001</a>
-                                <a href="https://www.sutd.edu.sg/course/30-002-circuits-electronics/" title="Circuits and Electronics" class="text-zinc-400 hover:text-blue-400 border border-zinc-800 px-2 py-1 transition">30.002</a>
-                                <a href="https://www.sutd.edu.sg/course/30-100-computational-and-data-driven-engineering/" title="Computational and Data-Driven Engineering" class="text-zinc-400 hover:text-blue-400 border border-zinc-800 px-2 py-1 transition">30.100</a>
-                            </div>
-                        </div>
+                <div class="w-full md:w-1/2 p-8 md:p-16 border-b md:border-b-0 md:border-r border-zinc-800">
+                    <div class="sticky top-32">
+                        <svg class="w-16 h-16 text-zinc-600 mb-8 stroke-current" fill="none" viewBox="0 0 24 24" stroke-width="1">
+                            <rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect>
+                            <path d="M9 9h6v6H9z"></path>
+                            <path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 14h3M1 9h3M1 14h3"></path>
+                        </svg>
+                        
+                        <h2 class="text-4xl md:text-5xl font-bold mb-4 tracking-tighter">Hardware</h2>
+                        <p class="text-zinc-400 leading-relaxed text-lg">
+                            Designing the physical interfaces and electronics that connect digital logic to the real world. From schematic capture to rapid prototyping and fabrication.
+                        </p>
+                    </div>
+                </div>
 
-                        <div>
-                            <p class="text-zinc-500 mono text-[10px] uppercase mb-2">Term 3 Coursework</p>
-                            <div class="flex gap-2 flex-wrap text-[10px] mono">
-                                <a href="https://www.sutd.edu.sg/course/01-020-design-thinking-project-iii/" title="Design Thinking Project III" class="text-zinc-400 hover:text-blue-400 border border-zinc-800 px-2 py-1 transition">01.020</a>
-                                <a href="https://www.sutd.edu.sg/course/02-001-global-humanities-literature-philosophy-and-ethics/" title="HASS: Global Humanities: Literature, Philosophy, and Ethics" class="text-zinc-400 hover:text-blue-400 border border-zinc-800 px-2 py-1 transition">02.001</a>
-                                <a href="https://www.sutd.edu.sg/course/10-020-data-driven-world-elective/" title="Data Driven World" class="text-zinc-400 hover:text-blue-400 border border-zinc-800 px-2 py-1 transition">10.020</a>
-                                <a href="https://www.sutd.edu.sg/course/10-022-modelling-uncertainty/" title="Modelling Uncertainty" class="text-zinc-400 hover:text-blue-400 border border-zinc-800 px-2 py-1 transition">10.022</a>
-                                <a href="https://www.sutd.edu.sg/course/10-023-designing-energy-systems-elective/" title="Designing Energy Systems" class="text-zinc-400 hover:text-blue-400 border border-zinc-800 px-2 py-1 transition">10.023</a>
+                <div class="w-full md:w-1/2">
+                    <div class="p-8 md:p-16 border-b border-zinc-800 hover:bg-zinc-900/50 transition duration-500 group">
+                        <h3 class="text-2xl font-bold mb-3 text-zinc-100 group-hover:text-blue-400 transition-colors">PCB Design & EDA</h3>
+                        <p class="text-zinc-400 leading-relaxed">
+                            Schematic capture, footprint design, and trace routing using KiCad. Focused on power management circuits, sensor integration, and optimizing layouts for compact wearable forms.
+                        </p>
+                    </div>
+                    
+                    <div class="p-8 md:p-16 border-b border-zinc-800 hover:bg-zinc-900/50 transition duration-500 group">
+                        <h3 class="text-2xl font-bold mb-3 text-zinc-100 group-hover:text-blue-400 transition-colors">3D Modeling & CAD</h3>
+                        <p class="text-zinc-400 leading-relaxed">
+                            Creating functional mechanical parts and enclosures using Autodesk Fusion 360. Validating spatial constraints and generating high-fidelity environment simulations with Twinmotion.
+                        </p>
+                    </div>
+
+                    <div class="p-8 md:p-16 hover:bg-zinc-900/50 transition duration-500 group">
+                        <h3 class="text-2xl font-bold mb-3 text-zinc-100 group-hover:text-blue-400 transition-colors">Rapid Prototyping</h3>
+                        <p class="text-zinc-400 leading-relaxed">
+                            Iterative hardware fabrication utilizing FDM 3D Printing. Experienced in material optimization (PLA, PETG) on platforms like Bambu Lab for achieving precise tolerances in functional assemblies.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex flex-col md:flex-row relative">
+                
+                <div class="w-full md:w-1/2 p-8 md:p-16 border-b md:border-b-0 md:border-r border-zinc-800">
+                    <div class="sticky top-32">
+                        <svg class="w-16 h-16 text-zinc-600 mb-8 stroke-current" fill="none" viewBox="0 0 24 24" stroke-width="1">
+                            <path d="M16 18l6-6-6-6M8 6l-6 6 6 6"></path>
+                        </svg>
+                        
+                        <h2 class="text-4xl md:text-5xl font-bold mb-4 tracking-tighter">Software</h2>
+                        <p class="text-zinc-400 leading-relaxed text-lg">
+                            Building the logic pipelines, machine learning models, and embedded firmware that bring physical devices and raw data to life.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="w-full md:w-1/2">
+                    <div class="p-8 md:p-16 border-b border-zinc-800 hover:bg-zinc-900/50 transition duration-500 group">
+                        <h3 class="text-2xl font-bold mb-3 text-zinc-100 group-hover:text-blue-400 transition-colors">Core Languages</h3>
+                        <p class="text-zinc-400 leading-relaxed">
+                            Developing robust data pipelines with Python, programming low-latency embedded systems with C++, and conducting statistical evaluations with R.
+                        </p>
+                    </div>
+                    
+                    <div class="p-8 md:p-16 border-b border-zinc-800 hover:bg-zinc-900/50 transition duration-500 group">
+                        <h3 class="text-2xl font-bold mb-3 text-zinc-100 group-hover:text-blue-400 transition-colors">Machine Learning</h3>
+                        <p class="text-zinc-400 leading-relaxed">
+                            Fine-tuning Large Language Models (LLMs) leveraging QLoRA and Unsloth for memory-efficient parameter adaptation, mapping outputs via PCA analysis.
+                        </p>
+                    </div>
+                
+                    <div class="p-8 md:p-16 border-b border-zinc-800 hover:bg-zinc-900/50 transition duration-500 group">
+                        <h3 class="text-2xl font-bold mb-3 text-zinc-100 group-hover:text-blue-400 transition-colors">Web Systems & UI</h3>
+                        <p class="text-zinc-400 leading-relaxed">
+                            Designing responsive, data-driven interfaces using HTML5, CSS3, and Tailwind CSS. Bridging the gap between IoT backends and user-facing dashboards.
+                        </p>
+                    </div>
+                
+                    <div class="p-8 md:p-16 hover:bg-zinc-900/50 transition duration-500 group">
+                        <h3 class="text-2xl font-bold mb-3 text-zinc-100 group-hover:text-blue-400 transition-colors">Version Control (Git)</h3>
+                        <p class="text-zinc-400 leading-relaxed">
+                            Managing complex project lifecycles using Git and GitHub. maintaining clean repository architectures for collaborative hardware/software development.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="timeline" class="fullscreen-section px-6 border-t border-zinc-800 bg-transparent py-24">
+        <div class="max-w-4xl mx-auto w-full">
+            <h2 class="text-3xl font-bold mb-20 text-zinc-500 uppercase tracking-widest mono text-sm flex items-center gap-4">
+                / Educational timeline
+                <span class="h-[1px] w-20 bg-blue-500/30"></span>
+            </h2>
+            
+            <div class="relative border-l border-zinc-800 ml-4 md:ml-8 pl-10 space-y-24">
+                
+                <div class="absolute left-[-1px] top-0 w-[2px] h-full bg-gradient-to-b from-blue-500 via-blue-400/20 to-transparent shadow-[0_0_15px_rgba(59,130,246,0.5)]"></div>
+
+                <div class="relative group">
+                    <div class="absolute -left-[49px] top-0 w-4 h-4 bg-blue-500 rounded-full border-4 border-zinc-950 shadow-[0_0_15px_rgba(59,130,246,0.8)] group-hover:scale-125 transition-transform duration-500"></div>
+                    
+                    <div class="hud-card p-8 corner-brace">
+                        <div class="flex flex-col md:flex-row md:items-center justify-between mb-6 gap-4">
+                            <div>
+                                <span class="text-blue-500 mono text-[10px] uppercase tracking-widest bg-blue-500/10 px-2 py-1 border border-blue-500/20">Phase_03: Active</span>
+                                <h3 class="text-2xl font-bold mt-3">Sophomore/Junior year</h3>
+                            </div>
+                            <span class="text-zinc-500 mono text-sm">Term 3 — Term 5 (Current)</span>
+                        </div>
+                        
+                        <div class="space-y-6 border-l border-blue-500/20 pl-4">
+                            <div>
+                                <p class="text-zinc-500 mono text-[10px] uppercase mb-3">Term 4 Coursework</p>
+                                <div class="flex gap-2 flex-wrap text-[10px] mono">
+                                    <a href="https://www.sutd.edu.sg/course/02-137dh-introduction-to-digital-humanities/" data-tip="Digital Humanities" class="hud-tooltip text-zinc-400 hover:text-blue-400 border border-zinc-800 hover:border-blue-500/50 hover:bg-blue-500/10 px-3 py-1.5 transition">02.137DH</a>
+                                    <a href="https://www.sutd.edu.sg/course/30-001-structures-materials/" data-tip="Structures and Materials" class="hud-tooltip text-zinc-400 hover:text-blue-400 border border-zinc-800 hover:border-blue-500/50 hover:bg-blue-500/10 px-3 py-1.5 transition">30.001</a>
+                                    <a href="https://www.sutd.edu.sg/course/30-002-circuits-electronics/" data-tip="Circuits and Electronics" class="hud-tooltip text-zinc-400 hover:text-blue-400 border border-zinc-800 hover:border-blue-500/50 hover:bg-blue-500/10 px-3 py-1.5 transition">30.002</a>
+                                    <a href="https://www.sutd.edu.sg/course/30-100-computational-and-data-driven-engineering/" data-tip="Computational and Data-Driven Engineering" class="hud-tooltip text-zinc-400 hover:text-blue-400 border border-zinc-800 hover:border-blue-500/50 hover:bg-blue-500/10 px-3 py-1.5 transition">30.100</a>
+                                </div>
+                            </div>
+
+                            <div>
+                                <p class="text-zinc-500 mono text-[10px] uppercase mb-3">Term 3 Coursework</p>
+                                <div class="flex gap-2 flex-wrap text-[10px] mono">
+                                    <a href="https://www.sutd.edu.sg/course/01-020-design-thinking-project-iii/" data-tip="Design Thinking Project III" class="hud-tooltip text-zinc-400 hover:text-blue-400 border border-zinc-800 hover:border-blue-500/50 hover:bg-blue-500/10 px-3 py-1.5 transition">01.020</a>
+                                    <a href="https://www.sutd.edu.sg/course/02-001-global-humanities-literature-philosophy-and-ethics/" data-tip="Global Humanities: Literature, Philosophy, and Ethics" class="hud-tooltip text-zinc-400 hover:text-blue-400 border border-zinc-800 hover:border-blue-500/50 hover:bg-blue-500/10 px-3 py-1.5 transition">02.001</a>
+                                    <a href="https://www.sutd.edu.sg/course/10-020-data-driven-world-elective/" data-tip="Data Driven World" class="hud-tooltip text-zinc-400 hover:text-blue-400 border border-zinc-800 hover:border-blue-500/50 hover:bg-blue-500/10 px-3 py-1.5 transition">10.020</a>
+                                    <a href="https://www.sutd.edu.sg/course/10-022-modelling-uncertainty/" data-tip="Modelling Uncertainty" class="hud-tooltip text-zinc-400 hover:text-blue-400 border border-zinc-800 hover:border-blue-500/50 hover:bg-blue-500/10 px-3 py-1.5 transition">10.022</a>
+                                    <a href="https://www.sutd.edu.sg/course/10-023-designing-energy-systems-elective/" data-tip="Designing Energy Systems" class="hud-tooltip text-zinc-400 hover:text-blue-400 border border-zinc-800 hover:border-blue-500/50 hover:bg-blue-500/10 px-3 py-1.5 transition">10.023</a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="relative">
-                    <div class="absolute -left-[41px] top-1 w-4 h-4 bg-zinc-700 rounded-full border-4 border-zinc-950"></div>
-                    <h3 class="text-xl font-bold">Freshmore Foundation</h3>
-                    <p class="text-zinc-400 text-sm leading-relaxed mb-6">Interdisciplinary foundation in modeling and analytical thinking.</p>
+                <div class="relative group">
+                    <div class="absolute -left-[49px] top-0 w-4 h-4 bg-zinc-700 rounded-full border-4 border-zinc-950 group-hover:bg-blue-500 transition-colors duration-500"></div>
                     
-                    <div class="space-y-6">
-                        <div>
-                            <p class="text-zinc-500 mono text-[10px] uppercase mb-2">Term 2 Coursework</p>
-                            <div class="flex gap-2 flex-wrap text-[10px] mono">
-                                
-                                <a href="https://www.sutd.edu.sg/course/10-016-science-for-a-sustainable-world/" title="Science for a Sustainable World" class="text-zinc-600 hover:text-white border border-zinc-900 px-2 py-1 transition">10.016</a>
-                                <a href="https://www.sutd.edu.sg/course/10-017-technological-world/" title="Technological World" class="text-zinc-600 hover:text-white border border-zinc-900 px-2 py-1 transition">10.017</a>
-                                 <a href="https://www.sutd.edu.sg/course/10-018-modelling-space-and-systems/" title="Modelling Space and Systems" class="text-zinc-600 hover:text-white border border-zinc-900 px-2 py-1 transition">10.018</a>  
-                                <a href="https://www.sutd.edu.sg/course/03-007-design-thinking-and-innovation" title="Design Thinking and Innovation" class="text-zinc-600 hover:text-white border border-zinc-900 px-2 py-1 transition">03.007</a>
-                                <a href="https://www.sutd.edu.sg/course/01-019-design-thinking-project-ii/" title="Design Thinking Project II" class="text-zinc-600 hover:text-white border border-zinc-900 px-2 py-1 transition">01.019</a>
+                    <div class="hud-card p-8 corner-brace opacity-80 hover:opacity-100 transition-opacity">
+                        <div class="flex flex-col md:flex-row md:items-center justify-between mb-6 gap-4">
+                            <div>
+                                <span class="text-zinc-400 mono text-[10px] uppercase tracking-widest bg-zinc-800/30 px-2 py-1 border border-zinc-700/50">Phase_02: Complete</span>
+                                <h3 class="text-2xl font-bold mt-3 text-zinc-200">Freshmore year</h3>
                             </div>
+                            <span class="text-zinc-500 mono text-sm">Term 1 — Term 2</span>
                         </div>
+                        
+                        <div class="space-y-6 border-l border-zinc-700/30 pl-4">
+                            <div>
+                                <p class="text-zinc-500 mono text-[10px] uppercase mb-3">Term 2 Coursework</p>
+                                <div class="flex gap-2 flex-wrap text-[10px] mono">
+                                    <a href="https://www.sutd.edu.sg/course/10-016-science-for-a-sustainable-world/" data-tip="Science for a Sustainable World" class="hud-tooltip text-zinc-500 hover:text-white border border-zinc-800/80 hover:border-zinc-500 hover:bg-zinc-800/50 px-3 py-1.5 transition">10.016</a>
+                                    <a href="https://www.sutd.edu.sg/course/10-017-technological-world/" data-tip="Technological World" class="hud-tooltip text-zinc-500 hover:text-white border border-zinc-800/80 hover:border-zinc-500 hover:bg-zinc-800/50 px-3 py-1.5 transition">10.017</a>
+                                    <a href="https://www.sutd.edu.sg/course/10-018-modelling-space-and-systems/" data-tip="Modelling Space and Systems" class="hud-tooltip text-zinc-500 hover:text-white border border-zinc-800/80 hover:border-zinc-500 hover:bg-zinc-800/50 px-3 py-1.5 transition">10.018</a>  
+                                    <a href="https://www.sutd.edu.sg/course/03-007-design-thinking-and-innovation" data-tip="Design Thinking and Innovation" class="hud-tooltip text-zinc-500 hover:text-white border border-zinc-800/80 hover:border-zinc-500 hover:bg-zinc-800/50 px-3 py-1.5 transition">03.007</a>
+                                    <a href="https://www.sutd.edu.sg/course/01-019-design-thinking-project-ii/" data-tip="Design Thinking Project II" class="hud-tooltip text-zinc-500 hover:text-white border border-zinc-800/80 hover:border-zinc-500 hover:bg-zinc-800/50 px-3 py-1.5 transition">01.019</a>
+                                </div>
+                            </div>
 
-                        <div>
-                            <p class="text-zinc-500 mono text-[10px] uppercase mb-2">Term 1 Coursework</p>
-                            <div class="flex gap-2 flex-wrap text-[10px] mono">
-                                <a href="https://www.sutd.edu.sg/course/10-013-modelling-and-analysis/" title="Modelling and Analysis" class="text-zinc-600 hover:text-white border border-zinc-900 px-2 py-1 transition">10.013</a>
-                                <a href="https://www.sutd.edu.sg/course/10-015-physical-world/" title="Physical World" class="text-zinc-600 hover:text-white border border-zinc-900 px-2 py-1 transition">10.015</a>
-                                <a href="https://www.sutd.edu.sg/course/10-025-computational-thinking-for-design/" title="Computational Thinking for Design" class="text-zinc-600 hover:text-white border border-zinc-900 px-2 py-1 transition">10.025</a>
-                                <a href="https://www.sutd.edu.sg/course/02-003-social-science-understanding-behaviour-culture-society/" title="HASS: Social Science: Understanding Behaviour, Culture & Society" class="text-zinc-600 hover:text-white border border-zinc-900 px-2 py-1 transition">02.003</a>
-                                <a href="https://www.sutd.edu.sg/course/01-018-design-thinking-project-i/" title="Design Thinking Project I" class="text-zinc-600 hover:text-white border border-zinc-900 px-2 py-1 transition">01.018</a>
+                            <div>
+                                <p class="text-zinc-500 mono text-[10px] uppercase mb-3">Term 1 Coursework</p>
+                                <div class="flex gap-2 flex-wrap text-[10px] mono">
+                                    <a href="https://www.sutd.edu.sg/course/10-013-modelling-and-analysis/" data-tip="Modelling and Analysis" class="hud-tooltip text-zinc-500 hover:text-white border border-zinc-800/80 hover:border-zinc-500 hover:bg-zinc-800/50 px-3 py-1.5 transition">10.013</a>
+                                    <a href="https://www.sutd.edu.sg/course/10-015-physical-world/" data-tip="Physical World" class="hud-tooltip text-zinc-500 hover:text-white border border-zinc-800/80 hover:border-zinc-500 hover:bg-zinc-800/50 px-3 py-1.5 transition">10.015</a>
+                                    <a href="https://www.sutd.edu.sg/course/10-025-computational-thinking-for-design/" data-tip="Computational Thinking for Design" class="hud-tooltip text-zinc-500 hover:text-white border border-zinc-800/80 hover:border-zinc-500 hover:bg-zinc-800/50 px-3 py-1.5 transition">10.025</a>
+                                    <a href="https://www.sutd.edu.sg/course/02-003-social-science-understanding-behaviour-culture-society/" data-tip="Understanding Behaviour, Culture & Society" class="hud-tooltip text-zinc-500 hover:text-white border border-zinc-800/80 hover:border-zinc-500 hover:bg-zinc-800/50 px-3 py-1.5 transition">02.003</a>
+                                    <a href="https://www.sutd.edu.sg/course/01-018-design-thinking-project-i/" data-tip="Design Thinking Project I" class="hud-tooltip text-zinc-500 hover:text-white border border-zinc-800/80 hover:border-zinc-500 hover:bg-zinc-800/50 px-3 py-1.5 transition">01.018</a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="relative pt-8 border-t border-zinc-900">
-                    <div class="absolute -left-[41px] top-9 w-4 h-4 bg-zinc-900 rounded-full border-4 border-zinc-950"></div>
-                    <h3 class="text-lg font-bold text-zinc-500">Junior College / Secondary</h3>
-                    <p class="text-zinc-600 text-sm italic leading-relaxed">GCE A-Level / O-Level Background in Science and Mathematics.</p>
+                <div class="relative group">
+                    <div class="absolute -left-[49px] top-0 w-4 h-4 bg-zinc-800 rounded-full border-4 border-zinc-950 shadow-[0_0_10px_rgba(0,0,0,0.5)]"></div>
+                    <div class="pl-2">
+                        <span class="text-zinc-600 mono text-[10px] uppercase tracking-widest">Phase_01: Complete</span>
+                        <h3 class="text-lg font-bold text-zinc-500 mt-2">Junior College / Secondary</h3>
+                        <p class="text-zinc-600 text-sm mt-2">GCE A-Level / O-Level Background in Science and Mathematics.</p>
+                    </div>
                 </div>
+
             </div>
         </div>
     </section>
 
-    <section id="contact" class="fullscreen-section px-6 bg-zinc-900 border-t border-zinc-800">
-        <div class="max-w-md mx-auto w-full text-center">
-            <h2 class="text-3xl font-bold mb-8">Get in Touch</h2>
-            <div class="space-y-4">
-                <a href="https://www.linkedin.com/in/ming-xiang" target="_blank" class="block w-full bg-zinc-800 hover:bg-zinc-700 p-4 rounded text-left transition flex items-center justify-between group">
-                    <span class="text-zinc-400 group-hover:text-white">LinkedIn</span>
-                    <span class="mono text-sm">/in/ming-xiang ↗</span>
+    <section id="contact" class="fullscreen-section px-6 border-t border-zinc-800 bg-transparent py-24">
+        <div class="max-w-4xl mx-auto w-full text-center">
+            
+            <h2 class="text-3xl font-bold mb-16 text-zinc-500 uppercase tracking-widest mono text-sm flex items-center justify-center gap-4">
+                <span class="h-[1px] w-12 bg-blue-500/30"></span>
+                Get in Touch
+                <span class="h-[1px] w-12 bg-blue-500/30"></span>
+            </h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                
+                <a href="https://www.linkedin.com/in/ming-xiang" target="_blank" rel="noopener noreferrer" class="hud-card group flex flex-col items-center justify-center p-12 corner-brace cursor-pointer">
+                    <div class="absolute top-4 right-4 w-2 h-2 rounded-full bg-zinc-700 group-hover:bg-blue-500 group-hover:shadow-[0_0_10px_rgba(59,130,246,0.8)] transition-all duration-300"></div>
+                    
+                    <svg class="w-12 h-12 mb-6 text-zinc-600 group-hover:text-blue-400 transition-colors duration-500 transform group-hover:scale-110" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                    </svg>
+                    
+                    <h3 class="text-lg font-bold text-zinc-300 group-hover:text-white transition-colors">LinkedIn</h3>
+                    
+                    <div class="mt-3 h-4 overflow-hidden">
+                        <span class="text-[10px] mono text-blue-500 opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 block">/in/ming-xiang</span>
+                    </div>
                 </a>
-                <a href="mailto:mingxiang798@gmail.com" class="block w-full bg-zinc-800 hover:bg-zinc-700 p-4 rounded text-left transition flex items-center justify-between group">
-                    <span class="text-zinc-400 group-hover:text-white">Email (Personal)</span>
-                    <span class="mono text-sm">mingxiang798@gmail.com ↗</span>
+
+                <a href="mailto:mingxiang798@gmail.com" class="hud-card group flex flex-col items-center justify-center p-12 corner-brace cursor-pointer">
+                    <div class="absolute top-4 right-4 w-2 h-2 rounded-full bg-zinc-700 group-hover:bg-blue-500 group-hover:shadow-[0_0_10px_rgba(59,130,246,0.8)] transition-all duration-300"></div>
+                    
+                    <svg class="w-12 h-12 mb-6 text-zinc-600 group-hover:text-blue-400 transition-colors duration-500 transform group-hover:scale-110" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/>
+                    </svg>
+                    
+                    <h3 class="text-lg font-bold text-zinc-300 group-hover:text-white transition-colors">Gmail</h3>
+                    
+                    <div class="mt-3 h-4 overflow-hidden">
+                        <span class="text-[10px] mono text-blue-500 opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 block">mingxiang798@gmail.com</span>
+                    </div>
                 </a>
-                <a href="mailto:1008912@mymail.sutd.edu.sg" class="block w-full bg-zinc-800 hover:bg-zinc-700 p-4 rounded text-left transition flex items-center justify-between group">
-                    <span class="text-zinc-400 group-hover:text-white">Email (SUTD)</span>
-                    <span class="mono text-sm">1008912@mymail.sutd.edu.sg ↗</span>
+
+                <a href="mailto:1008912@mymail.sutd.edu.sg" class="hud-card group flex flex-col items-center justify-center p-12 corner-brace cursor-pointer">
+                    <div class="absolute top-4 right-4 w-2 h-2 rounded-full bg-zinc-700 group-hover:bg-amber-500 group-hover:shadow-[0_0_10px_rgba(245,158,11,0.8)] transition-all duration-300"></div>
+                    
+                    <svg class="w-12 h-12 mb-6 text-zinc-600 group-hover:text-amber-500 transition-colors duration-500 transform group-hover:scale-110" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 12a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0zm0 0c0 1.657 1.007 3 2.25 3S21 13.657 21 12a9 9 0 10-2.636 6.364M16.5 12V8.25"/>
+                    </svg>
+                    
+                    <h3 class="text-lg font-bold text-zinc-300 group-hover:text-white transition-colors">SUTD email</h3>
+                    
+                    <div class="mt-3 h-4 overflow-hidden">
+                        <span class="text-[10px] mono text-amber-500 opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 block">1008912@mymail.sutd.edu.sg</span>
+                    </div>
                 </a>
+
             </div>
         </div>
     </section>
 
+    <script>
+        const container = document.getElementById('canvas-container');
+        
+        // 1. Scene Setup
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+        renderer.setSize(container.clientWidth, container.clientHeight);
+        renderer.setPixelRatio(window.devicePixelRatio);
+        container.appendChild(renderer.domElement);
+
+        // 2. Engineering Geometry (Complex Structural Knot)
+        const geometry = new THREE.TorusKnotGeometry(12, 3.5, 150, 20);
+        
+        // 3. Blueprint Wireframe Material
+        const wireframeMaterial = new THREE.MeshBasicMaterial({ 
+            color: 0x3b82f6, // Tailwind blue-500
+            wireframe: true,
+            transparent: true,
+            opacity: 0.15
+        });
+        const structure = new THREE.Mesh(geometry, wireframeMaterial);
+        scene.add(structure);
+
+        // 4. Sensor Nodes (Points at the vertices)
+        const pointsMaterial = new THREE.PointsMaterial({ 
+            color: 0x60a5fa, // Tailwind blue-400
+            size: 0.15 
+        });
+        const nodes = new THREE.Points(geometry, pointsMaterial);
+        scene.add(nodes);
+
+        camera.position.z = 35;
+
+        // 5. Interactive Mouse Tracking
+        let mouseX = 0;
+        let mouseY = 0;
+        let targetX = 0;
+        let targetY = 0;
+        const windowHalfX = window.innerWidth / 2;
+        const windowHalfY = window.innerHeight / 2;
+
+        document.addEventListener('mousemove', (event) => {
+            mouseX = (event.clientX - windowHalfX);
+            mouseY = (event.clientY - windowHalfY);
+        });
+
+        // 6. Animation Loop (Rotation + Mouse Parallax)
+        function animate() {
+            requestAnimationFrame(animate);
+
+            // Base continuous rotation
+            structure.rotation.x += 0.002;
+            structure.rotation.y += 0.003;
+            nodes.rotation.x += 0.002;
+            nodes.rotation.y += 0.003;
+            
+            // Smooth mouse parallax physics
+            targetX = mouseX * 0.001;
+            targetY = mouseY * 0.001;
+            
+            scene.rotation.y += 0.05 * (targetX - scene.rotation.y);
+            scene.rotation.x += 0.05 * (targetY - scene.rotation.x);
+            
+            renderer.render(scene, camera);
+        }
+        animate();
+        
+        // 7. Responsive Resize Handling
+        window.addEventListener('resize', () => {
+            camera.aspect = container.clientWidth / container.clientHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(container.clientWidth, container.clientHeight);
+        });
+    </script>
 </body>
 </html>

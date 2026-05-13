@@ -6,14 +6,52 @@
     <title>Hackuccino | What The Hack 2025</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
+        /* Shared Blue Laboratory Styles */
+        body { background-color: #020617; color: #d4d4d8; }
+        
+        .vector-grid {
+            background-image: radial-gradient(circle at 2px 2px, rgba(59, 130, 246, 0.05) 1px, transparent 0);
+            background-size: 40px 40px;
+        }
+    
+        /* Hologram Image Filter */
+        .image-tint-container { background-color: #020617; position: relative; overflow: hidden; border: 1px solid rgba(59, 130, 246, 0.1); }
+        .image-tint-container::after {
+            content: ""; position: absolute; inset: 0;
+            background: linear-gradient(rgba(59, 130, 246, 0.08) 50%, transparent 50%);
+            background-size: 100% 2px; z-index: 2; pointer-events: none;
+        }
+        .image-tint-container img, .image-tint-container iframe {
+            filter: grayscale(100%) brightness(0.8) contrast(1.2) sepia(100%) hue-rotate(190deg) saturate(300%);
+            opacity: 0.5; transition: all 0.7s ease;
+        }
+        .image-tint-container:hover img, .image-tint-container:hover iframe {
+            filter: grayscale(0%) brightness(1) contrast(1) sepia(0%) saturate(100%);
+            opacity: 1; transform: scale(1.05);
+        }
+    
+        /* Glass Panels */
+        .hud-card {
+            background: rgba(9, 9, 11, 0.4);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(59, 130, 246, 0.1);
+        }
+
+        .corner-brace { position: relative; }
+        .corner-brace::before, .corner-brace::after {
+            content: ""; position: absolute; width: 10px; height: 10px; border-color: rgba(59, 130, 246, 0.3); border-style: solid; pointer-events: none;
+        }
+        .corner-brace::before { top: 0; left: 0; border-width: 1px 0 0 1px; }
+        .corner-brace::after { bottom: 0; right: 0; border-width: 0 1px 1px 0; }
+
         .mono { font-family: 'Courier New', Courier, monospace; }
     </style>
 </head>
-<body class="bg-zinc-950 text-gray-100 antialiased selection:bg-blue-500 selection:text-white">
+<body class="vector-grid min-h-screen antialiased selection:bg-blue-500 selection:text-white">
 
-    <nav class="w-full bg-zinc-950/80 backdrop-blur-md z-50 border-b border-zinc-800 sticky top-0">
+    <nav class="w-full bg-zinc-950/20 backdrop-blur-md z-50 border-b border-zinc-800 sticky top-0">
         <div class="max-w-4xl mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="../index.html" class="text-zinc-400 hover:text-white transition mono text-sm">← Back to Portfolio</a>
+            <a href="../index.html" class="text-zinc-500 hover:text-white transition mono text-sm">← Back to Portfolio</a>
         </div>
     </nav>
 
@@ -21,7 +59,7 @@
         
         <header class="mb-16">
             <div class="flex items-center gap-3 mb-4">
-                <span class="bg-purple-500/20 text-purple-400 px-3 py-1 rounded-full text-xs font-bold mono">48-Hour Hackathon</span>
+                <span class="bg-purple-500/20 text-purple-400 px-3 py-1 rounded-full text-xs font-bold mono border border-purple-500/30">48-Hour Hackathon</span>
                 <span class="text-zinc-500 mono text-sm">SUTD What The Hack 2025</span>
             </div>
             <h1 class="text-5xl font-bold tracking-tighter mb-4 text-white">Hackuccino: The Moving Duck Alarm</h1>
@@ -29,13 +67,13 @@
         </header>
 
         <section class="mb-16">
-            <div class="w-full bg-zinc-900 rounded border border-zinc-800 overflow-hidden shadow-2xl">
-                <img src="../images/WTH poster.jpg" alt="What The Hack 2025 Poster" class="w-full h-auto object-cover hover:opacity-90 transition">
+            <div class="w-full image-tint-container rounded-sm border border-blue-500/20 shadow-2xl">
+                <img src="../images/WTH poster.jpg" alt="What The Hack 2025 Poster" class="w-full h-auto object-cover">
             </div>
         </section>
 
-        <section class="mb-16 border-l border-zinc-800 pl-6">
-            <h2 class="text-2xl font-bold mb-4">Project Overview</h2>
+        <section class="mb-16 border-l-2 border-blue-500 pl-6 hud-card p-6 corner-brace">
+            <h2 class="text-2xl font-bold mb-4 text-white">Project Overview</h2>
             <p class="text-zinc-300 leading-relaxed">
                 Developed a "moving duck" alarm clock designed to prevent oversleeping by forcing physical interaction. Built within a 48-hour hackathon sprint under the "Sleep" theme, the project combines mechanical design with IoT connectivity to create a persistent wake-up solution.
             </p>
@@ -43,10 +81,10 @@
 
         <section class="mb-16">
             <h2 class="text-2xl font-bold mb-6 text-zinc-400 uppercase tracking-widest mono text-sm">/ Mechanical Gait Demo</h2>
-            <div class="max-w-sm mx-auto aspect-[9/16] bg-zinc-900 rounded border border-zinc-800 overflow-hidden shadow-lg mb-6">
+            <div class="max-w-sm mx-auto aspect-[9/16] image-tint-container rounded-sm border border-blue-500/20 shadow-lg mb-6">
                 <iframe width="100%" height="100%" src="https://www.youtube.com/embed/Kz5F1uFuUB0" title="Mechanical walking gait demo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
-            <div class="bg-zinc-900/50 p-6 rounded border border-zinc-800">
+            <div class="hud-card p-6 rounded-sm corner-brace">
                 <p class="text-zinc-400 text-sm leading-relaxed">
                     A demonstration of the mechanical walking gait developed for our Hackathon 2025 project. The video showcases the synchronized servo-motor control used to create a persistent "chase-to-snooze" alarm, integrated with a Telegram Bot API.
                 </p>
@@ -54,9 +92,9 @@
         </section>
 
         <section class="mb-16 pt-16 border-t border-zinc-800">
-            <h2 class="text-2xl font-bold mb-6">Team & Participation</h2>
-            <div class="flex flex-col md:flex-row gap-8 items-start bg-zinc-900/50 p-8 rounded border border-zinc-800">
-                <div class="w-full md:w-1/2 overflow-hidden rounded border border-zinc-700 shadow-lg">
+            <h2 class="text-2xl font-bold mb-6 text-white">Team & Participation</h2>
+            <div class="flex flex-col md:flex-row gap-8 items-start hud-card p-8 corner-brace">
+                <div class="w-full md:w-1/2 image-tint-container rounded-sm border border-blue-500/20 shadow-lg">
                     <img src="../images/WTH cert.png" alt="What The Hack Certificate of Participation" class="w-full h-auto">
                 </div>
                 <div class="w-full md:w-1/2">

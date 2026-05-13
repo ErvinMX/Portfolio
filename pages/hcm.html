@@ -6,12 +6,50 @@
     <title>TagEdu | Ho Chi Minh 2025</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
+        /* Shared Blue Laboratory Styles */
+        body { background-color: #020617; color: #d4d4d8; }
+        
+        .vector-grid {
+            background-image: radial-gradient(circle at 2px 2px, rgba(59, 130, 246, 0.05) 1px, transparent 0);
+            background-size: 40px 40px;
+        }
+    
+        /* Hologram Image Filter */
+        .image-tint-container { background-color: #020617; position: relative; overflow: hidden; border: 1px solid rgba(59, 130, 246, 0.1); }
+        .image-tint-container::after {
+            content: ""; position: absolute; inset: 0;
+            background: linear-gradient(rgba(59, 130, 246, 0.08) 50%, transparent 50%);
+            background-size: 100% 2px; z-index: 2; pointer-events: none;
+        }
+        .image-tint-container img, .image-tint-container iframe {
+            filter: grayscale(100%) brightness(0.8) contrast(1.2) sepia(100%) hue-rotate(190deg) saturate(300%);
+            opacity: 0.5; transition: all 0.7s ease;
+        }
+        .image-tint-container:hover img, .image-tint-container:hover iframe {
+            filter: grayscale(0%) brightness(1) contrast(1) sepia(0%) saturate(100%);
+            opacity: 1; transform: scale(1.05);
+        }
+    
+        /* Glass Panels */
+        .hud-card {
+            background: rgba(9, 9, 11, 0.4);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(59, 130, 246, 0.1);
+        }
+
+        .corner-brace { position: relative; }
+        .corner-brace::before, .corner-brace::after {
+            content: ""; position: absolute; width: 10px; height: 10px; border-color: rgba(59, 130, 246, 0.3); border-style: solid; pointer-events: none;
+        }
+        .corner-brace::before { top: 0; left: 0; border-width: 1px 0 0 1px; }
+        .corner-brace::after { bottom: 0; right: 0; border-width: 0 1px 1px 0; }
+
         .mono { font-family: 'Courier New', Courier, monospace; }
     </style>
 </head>
-<body class="bg-zinc-950 text-gray-100 antialiased selection:bg-blue-500 selection:text-white">
+<body class="vector-grid min-h-screen antialiased selection:bg-blue-500 selection:text-white">
 
-    <nav class="w-full bg-zinc-950/80 backdrop-blur-md z-50 border-b border-zinc-800 sticky top-0">
+    <nav class="w-full bg-zinc-950/20 backdrop-blur-md z-50 border-b border-zinc-800 sticky top-0">
         <div class="max-w-4xl mx-auto px-6 py-4 flex justify-between items-center">
             <a href="../index.html" class="text-zinc-400 hover:text-white transition mono text-sm">← Back to Portfolio</a>
         </div>
@@ -21,17 +59,17 @@
         
         <header class="mb-16">
             <div class="flex items-center gap-3 mb-4">
-                <span class="bg-amber-500/20 text-amber-500 px-3 py-1 rounded-full text-xs font-bold mono">🏆 1st Runner-Up</span>
+                <span class="bg-amber-500/20 text-amber-500 px-3 py-1 rounded-full text-xs font-bold mono border border-amber-500/30">🏆 1st Runner-Up</span>
                 <span class="text-zinc-500 mono text-sm">I&E x UEH GEO 2025</span>
             </div>
             <h1 class="text-5xl font-bold tracking-tighter mb-4 text-white">TagEdu: Bridging the Digital Divide</h1>
             <p class="text-xl text-zinc-400 mono">AI Education Strategy @ Ho Chi Minh City</p>
         </header>
 
-        <section class="mb-16 border-l border-zinc-800 pl-6">
+        <section class="mb-16 border-l-2 border-amber-500 pl-6 hud-card p-6 corner-brace">
             <h2 class="text-2xl font-bold mb-8 text-zinc-400 uppercase tracking-widest mono text-sm">/ Project Overview</h2>
 
-            <div class="bg-zinc-900/50 border border-zinc-800 p-6 rounded mb-8">
+            <div class="hud-card p-6 rounded-sm mb-8">
                 <p class="text-zinc-400 text-sm mono uppercase tracking-widest mb-2">About the Partner</p>
                 <p class="text-zinc-200 leading-relaxed">
                     <span class="font-bold text-white">TagEdu</span> is an EdTech initiative focused on bridging the digital divide for K-12 students in provincial Vietnam by providing accessible coding and AI education.
@@ -44,13 +82,13 @@
                 </p>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div class="bg-zinc-900 border border-zinc-800 p-4 rounded relative overflow-hidden group">
+                    <div class="hud-card p-4 rounded-sm relative overflow-hidden group">
                         <div class="absolute top-0 left-0 w-1 h-full bg-red-500/50"></div>
                         <p class="text-red-400 font-bold mb-1 mono text-xs uppercase tracking-tighter">Barrier 01</p>
                         <p class="text-white font-bold mb-1">Infrastructure Gaps</p>
                         <p class="text-zinc-400 text-sm italic leading-snug">Limited internet connectivity and device availability for provincial K-12 students.</p>
                     </div>
-                    <div class="bg-zinc-900 border border-zinc-800 p-4 rounded relative overflow-hidden group">
+                    <div class="hud-card p-4 rounded-sm relative overflow-hidden group">
                         <div class="absolute top-0 left-0 w-1 h-full bg-red-500/50"></div>
                         <p class="text-red-400 font-bold mb-1 mono text-xs uppercase tracking-tighter">Barrier 02</p>
                         <p class="text-white font-bold mb-1">Teacher Readiness</p>
@@ -61,27 +99,27 @@
         </section>
         
         <section class="mb-16">
-            <h2 class="text-2xl font-bold mb-6">Interactive Prototype</h2>
-            <div class="bg-zinc-900 p-8 rounded border border-zinc-800 text-center">
+            <h2 class="text-2xl font-bold mb-6 text-white">Interactive Prototype</h2>
+            <div class="hud-card p-8 rounded-sm corner-brace text-center border-t-2 border-amber-500">
                 <p class="text-zinc-400 mb-6">Explore the high-fidelity UI/UX design developed to support students and teachers in provincial Vietnam.</p>
-                <a href="https://www.figma.com/proto/MTzAVLJxXLmsTTAZbhyD1t/1008912-s-team-library" target="_blank" class="inline-flex items-center gap-2 bg-white text-black px-8 py-4 rounded font-bold hover:bg-gray-200 transition">
+                <a href="https://www.figma.com/proto/MTzAVLJxXLmsTTAZbhyD1t/1008912-s-team-library" target="_blank" class="inline-flex items-center gap-2 bg-white text-black px-8 py-4 rounded-sm font-bold hover:bg-gray-200 transition">
                     Open Figma Prototype ↗
                 </a>
             </div>
         </section>
 
         <section class="mb-16">
-            <h2 class="text-2xl font-bold mb-8">Key Contributions</h2>
+            <h2 class="text-2xl font-bold mb-8 text-white">Key Contributions</h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="bg-zinc-900 p-6 rounded border border-zinc-800">
+                <div class="hud-card p-6 rounded-sm corner-brace">
                     <h3 class="font-bold text-blue-400 mb-2 mono">UI/UX Lead</h3>
                     <p class="text-zinc-400 text-sm">Utilized Figma to design the high-fidelity interactive prototype, focusing on an intuitive user journey for both students and teachers.</p>
                 </div>
-                <div class="bg-zinc-900 p-6 rounded border border-zinc-800">
+                <div class="hud-card p-6 rounded-sm corner-brace">
                     <h3 class="font-bold text-blue-400 mb-2 mono">Design Thinking</h3>
                     <p class="text-zinc-400 text-sm">Applied "How Might We" frameworks to identify and solve for infrastructure gaps and organizational transformation.</p>
                 </div>
-                <div class="bg-zinc-900 p-6 rounded border border-zinc-800">
+                <div class="hud-card p-6 rounded-sm corner-brace">
                     <h3 class="font-bold text-blue-400 mb-2 mono">Market Analysis</h3>
                     <p class="text-zinc-400 text-sm">Conducted research on the Southeast Asian EdTech landscape to ensure the proposed business model (franchising/licensing) was sustainable and scalable.</p>
                 </div>
@@ -89,9 +127,9 @@
         </section>
 
         <section class="mb-16 pt-16 border-t border-zinc-800">
-            <h2 class="text-2xl font-bold mb-6">Milestone Achievement</h2>
-            <div class="flex flex-col md:flex-row gap-8 items-center bg-zinc-900/50 p-8 rounded border border-zinc-800">
-                <div class="w-full md:w-1/2 overflow-hidden rounded border border-zinc-700 shadow-lg">
+            <h2 class="text-2xl font-bold mb-6 text-white">Milestone Achievement</h2>
+            <div class="flex flex-col md:flex-row gap-8 items-center hud-card p-8 rounded-sm corner-brace">
+                <div class="w-full md:w-1/2 image-tint-container rounded-sm border border-blue-500/20 shadow-lg">
                     <img src="../images/HoChiMinh.jpeg" alt="TagEdu 1st Runner Up Team" class="w-full h-auto">
                 </div>
                 <div class="w-full md:w-1/2">

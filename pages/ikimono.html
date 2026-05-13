@@ -13,7 +13,7 @@
 
     <nav class="w-full bg-zinc-950/80 backdrop-blur-md z-50 border-b border-zinc-800 sticky top-0">
         <div class="max-w-4xl mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="index.html" class="text-zinc-400 hover:text-white transition mono text-sm">← Back to Portfolio</a>
+            <a href="../index.html" class="text-zinc-400 hover:text-white transition mono text-sm">← Back to Portfolio</a>
         </div>
     </nav>
 
@@ -27,14 +27,14 @@
         <section class="mb-16 border-l border-zinc-800 pl-6">
             <h2 class="text-2xl font-bold mb-4">Project Overview</h2>
             <p class="text-zinc-300 leading-relaxed mb-6">
-                Ikimono is a wearable watch designed for primary school children to help them detect and manage their emotions[cite: 10, 18]. Using integrated physiological sensors, the device reflects the user's emotional state through an interactable creature on the screen, complementing mindfulness techniques taught in schools[cite: 12, 19].
+                Ikimono is a wearable watch designed for primary school children to help them detect and manage their emotions. Using integrated physiological sensors, the device reflects the user's emotional state through an interactable creature on the screen, complementing mindfulness techniques taught in schools.
             </p>
         </section>
 
         <section class="mb-16">
             <h2 class="text-2xl font-bold mb-6">Project Concept</h2>
             <div class="w-full bg-zinc-900 rounded border border-zinc-800 overflow-hidden shadow-xl">
-                <img src="ikimono_poster_image.jpg" alt="Ikimono Project Poster" class="w-full h-auto">
+                <img src="../images/ikimono_poster_image.jpg" alt="Ikimono Project Poster" class="w-full h-auto">
             </div>
             <p class="text-sm text-zinc-500 mt-4 italic text-center">Conceptual poster detailing the "How It Works" workflow and design considerations.</p>
         </section>
@@ -68,7 +68,7 @@
                     Engineered the testboard schematic featuring a power management system with USB-C input, a BQ24075 battery charging circuit, and an AMS1117 voltage regulator.
                 </p>
                 <div class="w-full bg-zinc-900 rounded border border-zinc-800 overflow-hidden shadow-lg mb-4">
-                    <img src="ikimono_schematic.jpg" alt="Ikimono Electronics Schematic" class="w-full h-auto">
+                    <img src="../images/ikimono_schematic.jpg" alt="Ikimono Electronics Schematic" class="w-full h-auto">
                 </div>
                 <p class="text-sm text-zinc-500">The design integrates a MAX30102 Heart Rate sensor, LSM6DS3 IMU, and an INMP441 Microphone for comprehensive bio-sensing.</p>
             </div>
@@ -79,8 +79,31 @@
                     Translated the schematic into a compact PCB layout optimized for a wearable form factor. Focused on signal integrity for the ESP32-S3 module and strategic placement of mounting holes for the watch casing.
                 </p>
                 <div class="w-full bg-zinc-900 rounded border border-zinc-800 overflow-hidden shadow-lg">
-                    <img src="PCD_ikimono.jpg" alt="Ikimono PCB Layout" class="w-full h-auto">
+                    <img src="../images/PCD_ikimono.jpg" alt="Ikimono PCB Layout" class="w-full h-auto">
                 </div>
+            </div>
+        </section>
+
+        <section class="mb-16">
+            <h2 class="text-2xl font-bold mb-6">Hardware Prototypes</h2>
+            <p class="text-zinc-400 mb-8 leading-relaxed">
+                Iterative physical models demonstrating the wearable form factor, custom 3D-printed casing, and real-time UI integration with the ESP32 hardware.
+            </p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                
+                <div class="bg-zinc-900 rounded border border-zinc-800 overflow-hidden shadow-lg aspect-[4/5] relative group">
+                    <img src="../images/Ikimono_protype1.jpg" alt="Ikimono Prototype UI" class="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-105">
+                </div>
+
+                <div class="bg-zinc-900 rounded border border-zinc-800 overflow-hidden shadow-lg aspect-[4/5] relative group">
+                    <img src="../images/Ikimono_protype2.jpg" alt="Ikimono Prototype on Wrist" class="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-105">
+                </div>
+
+                <div class="bg-zinc-900 rounded border border-zinc-800 overflow-hidden shadow-lg aspect-[4/5] relative group">
+                    <img src="../images/Ikimono_prototype3.jpg" alt="Ikimono Prototype Display" class="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-105">
+                </div>
+                
             </div>
         </section>
 
@@ -95,7 +118,7 @@
             <h2 class="text-2xl font-bold mb-6">Team & Credits</h2>
             <div class="flex flex-col md:flex-row gap-8 items-start bg-zinc-900/50 p-8 rounded border border-zinc-800">
                 <div class="w-full md:w-1/2 overflow-hidden rounded border border-zinc-700 shadow-lg">
-                    <img src="Ikimono_team.jpg" alt="Ikimono Development Team" class="w-full h-auto">
+                    <img src="../images/Ikimono_team.jpg" alt="Ikimono Development Team" class="w-full h-auto">
                 </div>
                 <div class="w-full md:w-1/2">
                     <p class="text-zinc-300 italic mb-6 leading-relaxed">

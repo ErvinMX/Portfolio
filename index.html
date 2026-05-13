@@ -5,14 +5,45 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ming | Engineering Portfolio</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    
     <style>
-        /* Custom Monospace Accents */
-        .mono { font-family: 'Courier New', Courier, monospace; }
-        /* Ensures each section takes exactly the full screen height */
-        .fullscreen-section { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; }
+        /* 1. Custom Monospace Stack - Engineering Documentation Feel */
+        .mono { font-family: 'JetBrains Mono', 'IBM Plex Mono', 'Courier New', monospace; }
+    
+        /* 2. Fullscreen Logic */
+        .fullscreen-section { 
+            min-height: 100vh; 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: center; 
+        }
+    
+        /* 3. The Engineering "Blueprint" Grid - Brightened for visibility */
+        .engineering-grid {
+            background-color: #09090b;
+            background-image: radial-gradient(circle, #3f3f46 1px, transparent 1px);
+            background-size: 40px 40px;
+            background-attachment: fixed;
+        }
+    
+        /* 4. Sleek Technical Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #09090b; }
+        ::-webkit-scrollbar-thumb { 
+            background: #27272a; 
+            border-radius: 10px; 
+            transition: background 0.3s ease;
+        }
+        ::-webkit-scrollbar-thumb:hover { background: #3b82f6; }
+    
+        /* 5. Clean Selection Glow */
+        ::selection {
+            background: rgba(59, 130, 246, 0.2);
+            color: #60a5fa;
+        }
     </style>
 </head>
-<body class="bg-zinc-950 text-gray-100 antialiased selection:bg-blue-500 selection:text-white">
+<body class="text-gray-100 antialiased engineering-grid selection:bg-blue-500/30">
 
     <nav class="fixed top-0 w-full bg-zinc-950/80 backdrop-blur-md z-50 border-b border-zinc-800">
         <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
@@ -26,13 +57,13 @@
         </div>
     </nav>
 
-    <section id="hero" class="fullscreen-section px-6 relative">
+    <section id="hero" class="fullscreen-section px-6 relative bg-transparent">
         <div class="max-w-6xl mx-auto w-full">
             <h1 class="text-6xl md:text-7xl font-bold tracking-tighter mb-6">
                 Hi 👋,<br><span class="text-zinc-500">I am </span>Sng Ming Xiang.
             </h1>
             <p class="text-xl text-zinc-400 max-w-2xl mb-10">
-                An Engineering Product Development student at SUTD. I focus on the intersection of hardware/electronics and software, with a particular interest in Semiconductor R&D, IOT systems, rapid prototyping and product development. I enjoy building systems that bridge the gap between digital simulations and physical hardware.
+                An Engineering Product Development student at SUTD specializing in hardware-software integration, rapid prototyping, and semiconductor R&D.
             </p>
             <div class="flex flex-wrap gap-4 mono text-sm">
                 <a href="#projects" class="bg-white text-black px-6 py-3 hover:bg-gray-200 transition">View Works</a>

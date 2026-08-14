@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HERMES | Project Details</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Shared Blue Laboratory Styles */
+        body { background-color: #020617; color: #d4d4d8; font-family: 'JetBrains Mono', monospace; }
+
+        .vector-grid {
+            background-image: radial-gradient(circle at 2px 2px, rgba(59, 130, 246, 0.05) 1px, transparent 0);
+            background-size: 40px 40px;
+        }
+
+        /* Hologram Image Filter */
+        .image-tint-container { background-color: #020617; position: relative; overflow: hidden; border: 1px solid rgba(59, 130, 246, 0.1); }
+        .image-tint-container::after {
+            content: ""; position: absolute; inset: 0;
+            background: linear-gradient(rgba(59, 130, 246, 0.08) 50%, transparent 50%);
+            background-size: 100% 2px; z-index: 2; pointer-events: none;
+        }
+        .image-tint-container img, .image-tint-container iframe {
+            filter: grayscale(100%) brightness(0.8) contrast(1.2) sepia(100%) hue-rotate(190deg) saturate(300%);
+            opacity: 0.5; transition: all 0.7s ease;
+        }
+        .image-tint-container:hover img, .image-tint-container:hover iframe {
+            filter: grayscale(0%) brightness(1) contrast(1) sepia(0%) saturate(100%);
+            opacity: 1; transform: scale(1.05);
+        }
+
+        /* Glass Panels */
+        .hud-card {
+            background: rgba(9, 9, 11, 0.4);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(59, 130, 246, 0.1);
+        }
+
+        .corner-brace { position: relative; }
+        .corner-brace::before, .corner-brace::after {
+            content: ""; position: absolute; width: 10px; height: 10px; border-color: rgba(59, 130, 246, 0.3); border-style: solid; pointer-events: none;
+        }
+        .corner-brace::before { top: 0; left: 0; border-width: 1px 0 0 1px; }
+        .corner-brace::after { bottom: 0; right: 0; border-width: 0 1px 1px 0; }
+
+        .mono { font-family: 'Courier New', Courier, monospace; }
+    </style>
+</head>
+<body class="vector-grid min-h-screen antialiased selection:bg-blue-500 selection:text-white">
+
+    <nav class="w-full bg-zinc-950/20 backdrop-blur-md z-50 border-b border-zinc-900 sticky top-0">
+        <div class="max-w-4xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="../index.html" class="text-zinc-500 hover:text-white transition mono text-sm">← Back to Portfolio</a>
+        </div>
+    </nav>
+
+    <main class="max-w-4xl mx-auto px-6 py-16">
+
+        <header class="mb-16">
+            <h1 class="text-5xl font-bold tracking-tighter mb-4 text-white uppercase">HERMES</h1>
+            <p class="text-xl text-blue-400 mono">Low-Cost Automated Counting &amp; Dispensing for Black Soldier Fly Neonates</p>
+            <div class="mt-6 flex flex-wrap gap-3 text-[10px] mono uppercase tracking-widest">
+                <span class="border border-blue-500/30 bg-blue-500/10 text-blue-400 px-3 py-1.5">Industry Partner: Ento Industries</span>
+                <span class="border border-zinc-800 text-zinc-500 px-3 py-1.5">30.007 EDI — SUTD</span>
+                <span class="border border-zinc-800 text-zinc-500 px-3 py-1.5">Event-Based Vision</span>
+            </div>
+        </header>
+
+        <section class="mb-16 border-l-2 border-blue-500 pl-6 hud-card p-6 corner-brace">
+            <h2 class="text-2xl font-bold mb-4 text-white uppercase mono text-sm">/ Project Overview</h2>
+            <p class="text-zinc-300 leading-relaxed">
+                HERMES is an end-to-end system that singulates and counts newly hatched Black Soldier Fly neonates before they are dispensed into rearing trays. Ento Industries, our industry partner, currently estimates neonate quantity by weighing to three decimal places (1&nbsp;g ≈ 66,666 neonates) — an estimate that directly governs substrate loading, growth rate and final yield. The only commercial equivalent, Entocycle's Entosight Neo, costs roughly S$440,000. HERMES delivers the same neonate-stage automation from off-the-shelf parts at a per-unit build cost of <span class="text-blue-400">S$1,120</span> — under 1% of the incumbent.
+            </p>
+            <p class="text-zinc-400 leading-relaxed mt-4 text-sm">
+                The machine is a vertical three-stage pipeline: a deformable TPU funnel tapped by a slider-crank linkage, an inclined vibrating ramp that declumps and singulates the flow, and an event-based camera at the drop zone that counts each neonate as it falls.
+            </p>
+        </section>
+
+        <section class="mb-16">
+            <h2 class="text-2xl font-bold mb-6 text-white uppercase mono text-sm">/ System Architecture</h2>
+            <div class="w-full image-tint-container rounded-sm border border-blue-500/20 shadow-xl">
+                <img src="../images/hermes_cad.png" alt="HERMES orthographic CAD drawing" class="w-full h-auto">
+            </div>
+            <p class="text-[11px] text-zinc-500 mt-4 italic text-center uppercase tracking-widest mono">Orthographic general arrangement — TPU deforming funnel, slider-crank tapping mechanism, vibrating ramp, and event camera counting station on a 2020 aluminium extrusion frame.</p>
+        </section>
+
+        <section class="mb-16 hud-card p-8 corner-brace">
+            <h2 class="text-2xl font-bold mb-10 text-blue-400 uppercase mono text-sm">/ My Contributions</h2>
+
+            <div class="mb-16">
+                <h3 class="text-sm font-bold mb-4 text-blue-400 mono uppercase flex items-center gap-2"><span class="w-1.5 h-1.5 bg-blue-500"></span> 01. Counting Mechanism &amp; Event-Based Vision</h3>
+                <p class="text-zinc-400 mb-6 text-sm leading-relaxed">
+                    I owned the counting subsystem end to end — sensor selection, optical arrangement at the drop zone, and the firmware that turns raw sensor events into a live neonate count.
+                </p>
+
+                <div class="mb-8 bg-zinc-900/30 border border-zinc-800 p-5">
+                    <p class="text-[10px] mono uppercase tracking-widest text-blue-400 mb-4">Sensor Trade Study — What I Learnt</p>
+                    <p class="text-zinc-400 text-sm leading-relaxed mb-5">
+                        Choosing the sensor meant first understanding how three fundamentally different imaging architectures sample a scene, and why a neonate — small, fast, sparse, falling at variable speed — breaks most of them:
+                    </p>
+                    <div class="space-y-4 text-sm">
+                        <div class="border-l border-zinc-700 pl-4">
+                            <p class="text-zinc-200 font-bold mb-1">Line-scan camera</p>
+                            <p class="text-zinc-400 leading-relaxed">Reconstructs an image one pixel-row at a time as the object crosses a fixed optical line. High effective sampling rate along the scan axis, but demands tight synchronisation between drop speed and line rate — unworkable for neonates falling at slightly variable speed and orientation.</p>
+                        </div>
+                        <div class="border-l border-zinc-700 pl-4">
+                            <p class="text-zinc-200 font-bold mb-1">Rolling shutter (e.g. Raspberry Pi camera module)</p>
+                            <p class="text-zinc-400 leading-relaxed">Exposes each sensor row sequentially rather than simultaneously. On a fast-falling target this introduces motion skew and blur across the frame, and successive frames can miss or double-count objects that cross the field of view faster than the frame interval.</p>
+                        </div>
+                        <div class="border-l border-zinc-700 pl-4">
+                            <p class="text-zinc-200 font-bold mb-1">Global shutter</p>
+                            <p class="text-zinc-400 leading-relaxed">Exposes all pixels at once, so the row-skew problem disappears — but it still samples only at a fixed frame rate. A sufficiently fast or small neonate can fall entirely between two exposures and go undetected, and pushing frame rate up trades off against exposure time, sensitivity and data bandwidth.</p>
+                        </div>
+                        <div class="border-l-2 border-blue-500 pl-4">
+                            <p class="text-blue-400 font-bold mb-1">Event-based — Prophesee GENX320 (selected)</p>
+                            <p class="text-zinc-300 leading-relaxed">Each pixel reports brightness change asynchronously and independently at microsecond-scale latency, rather than being read out on a fixed global clock. This removes both the shutter-skew problem and the fixed-sampling-interval problem shared by rolling and global shutter alike — and cuts the data volume, since only changing pixels are transmitted instead of full frames.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="text-zinc-400 mb-4 text-sm leading-relaxed">
+                    The counting firmware runs on an OpenMV board reading the GENX320 in grayscale histogram mode, where each pixel encodes recent event activity rather than absolute intensity — a falling neonate appears as a localised deviation from a flat mid-grey background. Each iteration the snapshot is thresholded outside a narrow mid-grey deadzone, active pixels are grouped into blobs, sub-threshold blobs are discarded as noise, and the remainder are restricted to a horizontal gate band straddling the drop line.
+                </p>
+                <p class="text-zinc-400 mb-4 text-sm leading-relaxed">
+                    Detections are associated with existing tracks through a vertical-fall motion model: each track predicts its next centroid from its running fall velocity, and detections are matched within a horizontal search window that widens the longer a track goes unmatched. A track is only accepted as a genuine neonate — rather than sensor noise — if it survived a minimum number of frames and produced a minimum net downward displacement.
+                </p>
+                <p class="text-zinc-400 mb-6 text-sm leading-relaxed">
+                    Two guards protect against double-counting: a short-lived closed-track buffer that reacquires objects reappearing after brief occlusion, and a proximity check against every active track before a detection is allowed to spawn a new one. Both can be overridden by a combined pixel-footprint check — if two blobs together are too large to plausibly be a single neonate, the detection is allowed its own track, since it more likely represents a second neonate falling close behind than a re-detection of the first.
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                    <div>
+                        <div class="w-full image-tint-container rounded-sm border border-blue-500/20 shadow-lg">
+                            <img src="../images/hermes_counting_error.png" alt="Counting error spread by batch size" class="w-full h-auto">
+                        </div>
+                        <p class="text-[10px] text-zinc-500 mt-3 mono uppercase tracking-widest leading-relaxed">Validated against 1,000 hand-counted proxy pieces: 98.6% mean accuracy at n=10, 92.9% at n=50.</p>
+                    </div>
+                    <div class="bg-zinc-900/30 border border-zinc-800 p-5 flex flex-col justify-center">
+                        <p class="text-[10px] mono uppercase tracking-widest text-blue-400 mb-3">Coincidence-Loss Model</p>
+                        <p class="text-zinc-400 text-sm leading-relaxed">
+                            I modelled undercounting as Poisson coincidence loss — two neonates crossing the detection line within a resolvable inter-arrival gap τ are counted as one. With τ measured at 0.57–0.93&nbsp;ms across three configurations, the model predicts ≥90% accuracy up to λ ≈ 113–185 neonates/s. It correctly predicted both the sign and rough magnitude of the n=50 error <span class="text-zinc-200">before any 50-batch trials were run</span>, which is why capping batch size at n=10 became the operating policy for the final system.
+                        </p>
+                    </div>
+                </div>
+
+                <a href="https://github.com/ErvinMX/Neonates_counting" target="_blank" class="inline-block border border-blue-500/30 hover:bg-blue-500/10 text-blue-400 px-4 py-2 rounded-sm mono text-xs transition">
+                    View Counting Firmware on GitHub ↗
+                </a>
+            </div>
+
+            <div class="mb-16">
+                <h3 class="text-sm font-bold mb-4 text-blue-400 mono uppercase flex items-center gap-2"><span class="w-1.5 h-1.5 bg-blue-500"></span> 02. System Power Architecture &amp; Wiring</h3>
+                <p class="text-zinc-400 mb-6 text-sm leading-relaxed">
+                    I designed and wired the full mains-powered distribution for the machine, so that three mechanically independent subsystems could share a single wall-powered rail without interfering with one another.
+                </p>
+                <div class="w-full image-tint-container rounded-sm border border-blue-500/20 shadow-lg mb-6">
+                    <img src="../images/hermes_functional.png" alt="HERMES functional and power/data diagram" class="w-full h-auto">
+                </div>
+                <div class="space-y-4 text-sm mb-6">
+                    <div class="border-l border-zinc-700 pl-4">
+                        <p class="text-zinc-200 font-bold mb-1">12&nbsp;V wall-adaptor rails</p>
+                        <p class="text-zinc-400 leading-relaxed">Each stage is fed from a 12&nbsp;V mains adaptor rather than batteries — the machine is a bench installation, and continuous operation matters more than portability. Separating the rails keeps the inrush and brush noise of the DC motors off the sensing electronics.</p>
+                    </div>
+                    <div class="border-l border-zinc-700 pl-4">
+                        <p class="text-zinc-200 font-bold mb-1">Buck-regulated vibration motor</p>
+                        <p class="text-zinc-400 leading-relaxed">The RF-385 ramp motor runs through a buck converter rather than straight off 12&nbsp;V, making the drive voltage a tunable parameter. That made the voltage sweep possible and lets the ramp be re-tuned for different granular loads.</p>
+                    </div>
+                    <div class="border-l border-zinc-700 pl-4">
+                        <p class="text-zinc-200 font-bold mb-1">12&nbsp;V → 5&nbsp;V step-down for the vision stage</p>
+                        <p class="text-zinc-400 leading-relaxed">A dedicated step-down feeds the OpenMV board, GENX320 sensor, LED backlight and 1602 I2C display, keeping the logic rail clean and independent of the motor loads switching upstream.</p>
+                    </div>
+                </div>
+                <div>
+                    <div class="w-full image-tint-container rounded-sm border border-blue-500/20 shadow-lg">
+                        <img src="../images/hermes_ramp_voltage.png" alt="Ramp traverse time versus motor voltage" class="w-full h-auto">
+                    </div>
+                    <p class="text-[10px] text-zinc-500 mt-3 mono uppercase tracking-widest leading-relaxed text-center">Regulated drive voltage made the three ramp regimes measurable — stall below 7.8&nbsp;V, stable operation 7.8–9.4&nbsp;V, chaotic ejection above 9.4&nbsp;V. Operating point set at 9.1&nbsp;V.</p>
+                </div>
+            </div>
+
+            <div class="mb-8">
+                <h3 class="text-sm font-bold mb-4 text-blue-400 mono uppercase flex items-center gap-2"><span class="w-1.5 h-1.5 bg-blue-500"></span> 03. CAD — Counting Chamber &amp; Light Box</h3>
+                <p class="text-zinc-400 mb-4 text-sm leading-relaxed">
+                    Within the overall assembly shown above, I modelled an iteration of the <span class="text-zinc-200">counting area enclosure and the light box holder</span> in Fusion 360 — the structure that fixes the GENX320 relative to the drop line and holds the LED backlight in even, repeatable alignment behind it. Camera-to-drop-zone distance turned out to be a counting-accuracy parameter, not just a packaging one: moving the sensor closer traded field of view for larger, more consistent event blobs and brought live-neonate behaviour in line with what had been validated on filament proxies.
+                </p>
+                <p class="text-zinc-500 text-sm leading-relaxed">
+                    I also modelled smaller supporting parts, including the LCD screen casing.
+                </p>
+            </div>
+
+            <div class="mb-8">
+                <h3 class="text-sm font-bold mb-4 text-blue-400 mono uppercase flex items-center gap-2"><span class="w-1.5 h-1.5 bg-blue-500"></span> 04. Firmware — Detection, Tracking &amp; Anti-Double-Count Logic</h3>
+                <p class="text-zinc-400 mb-6 text-sm leading-relaxed">
+                    Beyond the sensor selection, I wrote the counting firmware itself — running on the OpenMV board reading the GENX320 in grayscale histogram mode, where each pixel encodes recent event activity rather than absolute intensity, so a falling neonate shows up as a localised deviation from a flat mid-grey background. The core logic below was validated on the RT1062 across six iterations before being carried, unchanged, into a later bring-up on OpenMV's newer N6 board with an added I2C LCD readout.
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                    <div class="bg-zinc-900/30 border border-zinc-800 p-5">
+                        <p class="text-[10px] mono uppercase tracking-widest text-blue-400 mb-3">Detection — per frame</p>
+                        <ul class="text-zinc-400 text-sm leading-relaxed space-y-2 list-disc list-inside">
+                            <li>Threshold every pixel outside a narrow mid-grey deadzone (event vs. no-event)</li>
+                            <li>Group active pixels into blobs, drop any below a minimum pixel/area noise floor</li>
+                            <li>Keep only blobs inside a horizontal gate band straddling the drop line</li>
+                        </ul>
+                    </div>
+                    <div class="bg-zinc-900/30 border border-zinc-800 p-5">
+                        <p class="text-[10px] mono uppercase tracking-widest text-blue-400 mb-3">Tracking — vertical-fall matching</p>
+                        <ul class="text-zinc-400 text-sm leading-relaxed space-y-2 list-disc list-inside">
+                            <li>Each active track predicts its next centroid from a running fall-velocity estimate (per-track, blended with a fleet-wide average)</li>
+                            <li>New detections match the closest prediction inside a horizontal search window that widens the longer a track has gone unmatched</li>
+                            <li>Match candidates are also bounded by a plausible vertical drop-per-frame range, so a static speck can't be matched onto a falling track</li>
+                            <li>A track is only accepted as a real neonate — not sensor noise — once it has survived a minimum number of frames <span class="text-zinc-500">and</span> produced a minimum net downward displacement</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="bg-zinc-900/30 border border-zinc-800 p-5 mb-6">
+                    <p class="text-[10px] mono uppercase tracking-widest text-blue-400 mb-3">Two independent double-count guards</p>
+                    <div class="space-y-4 text-sm">
+                        <div class="border-l border-zinc-700 pl-4">
+                            <p class="text-zinc-200 font-bold mb-1">Re-merge guard</p>
+                            <p class="text-zinc-400 leading-relaxed">A track that finalises is held briefly in a closed-track buffer. If a new detection reappears near its last position within a position tolerance and time window, it's treated as the same neonate reacquired after a brief occlusion rather than counted again.</p>
+                        </div>
+                        <div class="border-l border-zinc-700 pl-4">
+                            <p class="text-zinc-200 font-bold mb-1">Active-proximity guard</p>
+                            <p class="text-zinc-400 leading-relaxed">Before a detection is allowed to spawn a brand-new track, it's checked against every currently active track. One that falls inside that track's proximity window is treated as a continuation of the same object and suppressed, instead of spawning a duplicate.</p>
+                        </div>
+                        <div class="border-l-2 border-blue-500 pl-4">
+                            <p class="text-blue-400 font-bold mb-1">Combined-size split override</p>
+                            <p class="text-zinc-300 leading-relaxed">Both guards defer to a combined pixel-footprint check: if the two blobs together are too large to plausibly be one neonate, the new detection is allowed to start its own track anyway — it more likely represents a second neonate falling in close succession than a re-detection of the first.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="text-zinc-400 mb-6 text-sm leading-relaxed">
+                    Every count increments a running total that's written to the 16×2 I2C LCD (throttled so display writes never stall the capture loop — line&nbsp;1 only rewrites when the count actually changes) and logged with its supporting frame count, pixel footprint and net vertical drop, so the tuning parameters above could be sanity-checked against real trial data rather than guessed. Two lighter-weight diagnostics ride alongside the core logic: a size-outlier tag that flags blobs large enough to suggest an unresolved merge, and a split-track tag that flags short, weak tracks against a running healthy-netdrop baseline — both purely informational, surfaced in the logs to guide future tuning rather than changing the count itself.
+                </p>
+
+                <div class="bg-zinc-900/50 border border-zinc-800 p-5">
+                    <p class="text-[10px] mono uppercase tracking-widest text-zinc-500 mb-3">Engineering practice note</p>
+                    <p class="text-zinc-400 text-sm leading-relaxed">
+                        Every hardware-facing call — sensor init, I2C bus/address discovery, individual GENX320 configuration steps — is wrapped in its own try/except with a descriptive log tag, so a failure in one call surfaces as an isolated, fixable bug instead of crashing the whole script or masking which step actually failed. That pattern, and the tracking logic itself, carried unchanged across a board migration (RT1062 → OpenMV N6) with only the I2C pin/address bring-up needing to be re-verified on the new hardware.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="mb-16 hud-card p-8 corner-brace">
+            <h2 class="text-2xl font-bold mb-6 text-white uppercase mono text-sm">/ Results</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                <div class="border border-blue-500/20 bg-zinc-900/30 p-5">
+                    <p class="text-3xl font-bold text-blue-400 mb-2">98.6%</p>
+                    <p class="text-[10px] mono uppercase tracking-widest text-zinc-500 leading-relaxed">Mean counting accuracy at batch size n=10 (target ≥90%)</p>
+                </div>
+                <div class="border border-blue-500/20 bg-zinc-900/30 p-5">
+                    <p class="text-3xl font-bold text-blue-400 mb-2">100%</p>
+                    <p class="text-[10px] mono uppercase tracking-widest text-zinc-500 leading-relaxed">Neonate survival and flow-through in live trials</p>
+                </div>
+                <div class="border border-blue-500/20 bg-zinc-900/30 p-5">
+                    <p class="text-3xl font-bold text-blue-400 mb-2">&lt;1%</p>
+                    <p class="text-[10px] mono uppercase tracking-widest text-zinc-500 leading-relaxed">Of the cost of the incumbent Entosight Neo (S$1,120 vs S$440,000)</p>
+                </div>
+            </div>
+            <p class="text-zinc-400 text-sm leading-relaxed">
+                Live-neonate trials confirmed full flow-through with zero losses: the TPU funnel released all neonates with no jams, the ramp declumped and advanced the stream at a steady rate, and the event camera detected and counted them at the drop zone. HERMES gives Ento Industries a directly measured count of neonates entering each rearing tray, where the operation previously only had a weight-based estimate.
+            </p>
+        </section>
+
+        <section class="mb-16 p-6 hud-card corner-brace border-l-2 border-amber-500">
+            <h2 class="text-lg font-bold mb-2 text-amber-500 mono uppercase">Next Steps</h2>
+            <p class="text-zinc-300 text-sm leading-relaxed">
+                The remaining accuracy gap is bounded by known remedies: replacing the rule-based blob detector with an ML-based classifier, re-tuning the blob size thresholds to live neonates rather than the filament proxy used for optimisation, and further reducing camera-to-drop-zone distance. Mechanically, a single-piece cast TPU funnel and a frequency-matched bass shaker in place of the vibration motor would give finer control of the sinusoidal profile.
+            </p>
+        </section>
+
+        <section class="mb-16 pt-16 border-t border-zinc-800">
+            <h2 class="text-2xl font-bold mb-6 text-white uppercase mono text-sm">/ Team &amp; Credits</h2>
+            <div class="hud-card p-8 corner-brace">
+                <div class="mono text-[10px] text-zinc-500 uppercase tracking-widest">
+                    <p class="mb-3 text-blue-400">Industry Partner:</p>
+                    <ul class="space-y-2 mb-8">
+                        <li class="text-zinc-300">Ento Industries — Black Soldier Fly bioconversion facility, Singapore</li>
+                    </ul>
+                    <p class="mb-3 text-blue-400">Project Team (alphabetical):</p>
+                    <ul class="space-y-2">
+                        <li>Benedict Julian Danandjaja Antoni</li>
+                        <li>Bryan Wilson Chandra</li>
+                        <li>Joshua Loo Yong Jie</li>
+                        <li>Kng Jia Qing</li>
+                        <li>Phelia Hoe Ying Qian</li>
+                        <li>Puah Yi Da</li>
+                        <li>Sng Ming Xiang</li>
+                        <li>Too Zhan Yue</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+    </main>
+</body>
+</html>

@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HERMES | Project Details</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         /* Shared Blue Laboratory Styles */
         body { background-color: #020617; color: #d4d4d8; font-family: 'JetBrains Mono', monospace; }
@@ -132,7 +135,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                     <div>
                         <div class="w-full image-tint-container rounded-sm border border-blue-500/20 shadow-lg">
-                            <img src="../images/hermes_counting_error.png" alt="Counting error spread by batch size" class="w-full h-auto">
+                            <img loading="lazy" decoding="async" src="../images/hermes_counting_error.png" alt="Counting error spread by batch size" class="w-full h-auto">
                         </div>
                         <p class="text-[10px] text-zinc-500 mt-3 mono uppercase tracking-widest leading-relaxed">Validated against 1,000 hand-counted proxy pieces: 98.6% mean accuracy at n=10, 92.9% at n=50.</p>
                     </div>
@@ -155,7 +158,7 @@
                     I designed and wired the full mains-powered distribution for the machine, so that three mechanically independent subsystems could share a single wall-powered rail without interfering with one another.
                 </p>
                 <div class="w-full image-tint-container rounded-sm border border-blue-500/20 shadow-lg mb-6">
-                    <img src="../images/hermes_functional.png" alt="HERMES functional and power/data diagram" class="w-full h-auto">
+                    <img loading="lazy" decoding="async" src="../images/hermes_functional.png" alt="HERMES functional and power/data diagram" class="w-full h-auto">
                 </div>
                 <div class="space-y-4 text-sm mb-6">
                     <div class="border-l border-zinc-700 pl-4">
@@ -173,7 +176,7 @@
                 </div>
                 <div>
                     <div class="w-full image-tint-container rounded-sm border border-blue-500/20 shadow-lg">
-                        <img src="../images/hermes_ramp_voltage.png" alt="Ramp traverse time versus motor voltage" class="w-full h-auto">
+                        <img loading="lazy" decoding="async" src="../images/hermes_ramp_voltage.png" alt="Ramp traverse time versus motor voltage" class="w-full h-auto">
                     </div>
                     <p class="text-[10px] text-zinc-500 mt-3 mono uppercase tracking-widest leading-relaxed text-center">Regulated drive voltage made the three ramp regimes measurable — stall below 7.8&nbsp;V, stable operation 7.8–9.4&nbsp;V, chaotic ejection above 9.4&nbsp;V. Operating point set at 9.1&nbsp;V.</p>
                 </div>
@@ -294,6 +297,23 @@
                         <li>Too Zhan Yue</li>
                     </ul>
                 </div>
+            </div>
+        </section>
+
+
+        <section class="mt-24 pt-10 border-t border-zinc-800">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <a href="hackuccino.html" class="hud-card corner-brace group p-6 flex flex-col justify-center transition hover:border-blue-500/40">
+                    <span class="text-[10px] mono uppercase tracking-widest text-zinc-500 mb-2 group-hover:text-blue-400 transition-colors">&larr; Previous Project</span>
+                    <span class="text-lg font-bold text-zinc-200 group-hover:text-blue-400 transition-colors">What The Hack 2025</span>
+                </a>
+                <a href="frankenstein.html" class="hud-card corner-brace group p-6 flex flex-col justify-center md:text-right transition hover:border-blue-500/40">
+                    <span class="text-[10px] mono uppercase tracking-widest text-zinc-500 mb-2 group-hover:text-blue-400 transition-colors">Next Project &rarr;</span>
+                    <span class="text-lg font-bold text-zinc-200 group-hover:text-blue-400 transition-colors">Frankenstein Reimagined</span>
+                </a>
+            </div>
+            <div class="text-center mt-8">
+                <a href="../index.html" class="text-[10px] mono uppercase tracking-widest text-zinc-600 hover:text-blue-400 transition">/ Back to all projects</a>
             </div>
         </section>
 

@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ikimono | Project Details</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         /* Shared Blue Laboratory Styles */
         body { background-color: #020617; color: #d4d4d8; font-family: 'JetBrains Mono', monospace; }
@@ -72,7 +75,7 @@
         <section class="mb-16">
             <h2 class="text-2xl font-bold mb-6 text-white uppercase mono text-sm">/ Project Concept</h2>
             <div class="w-full image-tint-container rounded-sm border border-blue-500/20 shadow-xl">
-                <img src="../images/ikimono_poster_image.jpg" alt="Ikimono Project Poster" class="w-full h-auto">
+                <img src="../images/ikimono_poster_image.png" alt="Ikimono Project Poster" class="w-full h-auto">
             </div>
             <p class="text-[11px] text-zinc-500 mt-4 italic text-center uppercase tracking-widest mono">Conceptual poster detailing the "How It Works" workflow and design considerations.</p>
         </section>
@@ -106,7 +109,7 @@
                     Engineered the testboard schematic featuring a power management system with USB-C input, a BQ24075 battery charging circuit, and an AMS1117 voltage regulator.
                 </p>
                 <div class="w-full image-tint-container rounded-sm border border-blue-500/20 shadow-lg mb-4">
-                    <img src="../images/ikimono_schematic.jpg" alt="Ikimono Electronics Schematic" class="w-full h-auto">
+                    <img loading="lazy" decoding="async" src="../images/ikimono_schematic.jpg" alt="Ikimono Electronics Schematic" class="w-full h-auto">
                 </div>
                 <p class="text-xs text-zinc-500 mono bg-zinc-900/30 p-3 border border-zinc-800">The design integrates a MAX30102 Heart Rate sensor, LSM6DS3 IMU, and an INMP441 Microphone for comprehensive bio-sensing.</p>
             </div>
@@ -117,7 +120,7 @@
                     Translated the schematic into a compact PCB layout optimized for a wearable form factor. Focused on signal integrity for the ESP32-S3 module and strategic placement of mounting holes for the watch casing.
                 </p>
                 <div class="w-full image-tint-container rounded-sm border border-blue-500/20 shadow-lg">
-                    <img src="../images/PCD_ikimono.jpg" alt="Ikimono PCB Layout" class="w-full h-auto">
+                    <img loading="lazy" decoding="async" src="../images/PCD_ikimono.jpg" alt="Ikimono PCB Layout" class="w-full h-auto">
                 </div>
             </div>
         </section>
@@ -130,13 +133,13 @@
             
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div class="image-tint-container rounded-sm border border-blue-500/20 shadow-lg aspect-[4/5]">
-                    <img src="../images/Ikimono_protype1.jpg" alt="Ikimono Prototype UI" class="w-full h-full object-cover">
+                    <img loading="lazy" decoding="async" src="../images/Ikimono_protype1.jpg" alt="Ikimono Prototype UI" class="w-full h-full object-cover">
                 </div>
                 <div class="image-tint-container rounded-sm border border-blue-500/20 shadow-lg aspect-[4/5]">
-                    <img src="../images/Ikimono_protype2.jpg" alt="Ikimono Prototype on Wrist" class="w-full h-full object-cover">
+                    <img loading="lazy" decoding="async" src="../images/Ikimono_protype2.jpg" alt="Ikimono Prototype on Wrist" class="w-full h-full object-cover">
                 </div>
                 <div class="image-tint-container rounded-sm border border-blue-500/20 shadow-lg aspect-[4/5]">
-                    <img src="../images/Ikimono_prototype3.jpg" alt="Ikimono Prototype Display" class="w-full h-full object-cover">
+                    <img loading="lazy" decoding="async" src="../images/Ikimono_prototype3.jpg" alt="Ikimono Prototype Display" class="w-full h-full object-cover">
                 </div>
             </div>
         </section>
@@ -152,7 +155,7 @@
             <h2 class="text-2xl font-bold mb-6 text-white uppercase mono text-sm">/ Team & Credits</h2>
             <div class="flex flex-col md:flex-row gap-8 items-start hud-card p-8 corner-brace">
                 <div class="w-full md:w-1/2 image-tint-container rounded-sm border border-blue-500/20 shadow-lg">
-                    <img src="../images/Ikimono_team.jpg" alt="Ikimono Development Team" class="w-full h-auto">
+                    <img loading="lazy" decoding="async" src="../images/Ikimono_team.jpg" alt="Ikimono Development Team" class="w-full h-auto">
                 </div>
                 <div class="w-full md:w-1/2">
                     <p class="text-zinc-300 italic mb-6 leading-relaxed text-sm">
@@ -168,6 +171,23 @@
                         </ul>
                     </div>
                 </div>
+            </div>
+        </section>
+
+
+        <section class="mt-24 pt-10 border-t border-zinc-800">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <a href="frankenstein.html" class="hud-card corner-brace group p-6 flex flex-col justify-center transition hover:border-blue-500/40">
+                    <span class="text-[10px] mono uppercase tracking-widest text-zinc-500 mb-2 group-hover:text-blue-400 transition-colors">&larr; Previous Project</span>
+                    <span class="text-lg font-bold text-zinc-200 group-hover:text-blue-400 transition-colors">Frankenstein Reimagined</span>
+                </a>
+                <a href="icamsee.html" class="hud-card corner-brace group p-6 flex flex-col justify-center md:text-right transition hover:border-blue-500/40">
+                    <span class="text-[10px] mono uppercase tracking-widest text-zinc-500 mb-2 group-hover:text-blue-400 transition-colors">Next Project &rarr;</span>
+                    <span class="text-lg font-bold text-zinc-200 group-hover:text-blue-400 transition-colors">I Cam&#39;See</span>
+                </a>
+            </div>
+            <div class="text-center mt-8">
+                <a href="../index.html" class="text-[10px] mono uppercase tracking-widest text-zinc-600 hover:text-blue-400 transition">/ Back to all projects</a>
             </div>
         </section>
 

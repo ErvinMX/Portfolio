@@ -5,9 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Frankenstein Reimagined | Individual Project</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         /* Shared Blue Laboratory Styles */
-        body { background-color: #020617; color: #d4d4d8; }
+        body { background-color: #020617; color: #d4d4d8; font-family: 'JetBrains Mono', monospace; }
         
         .vector-grid {
             background-image: radial-gradient(circle at 2px 2px, rgba(59, 130, 246, 0.05) 1px, transparent 0);
@@ -66,14 +69,14 @@
         </header>
 
         <section class="mb-16 border-l-2 border-blue-500 pl-6 hud-card p-6 corner-brace">
-            <h2 class="text-2xl font-bold mb-4 text-white">Project Overview</h2>
+            <h2 class="text-2xl font-bold mb-4 text-white uppercase mono text-sm">/ Project Overview</h2>
             <p class="text-zinc-300 leading-relaxed">
                 This project evaluates the capacity of fine-tuned LLMs to replicate the subconscious syntactic signatures of 19th-century prose. By fine-tuning <strong>Llama 3.1-8B</strong> on Mary Shelley’s works, the narrative was reimagined to explore themes of moral accountability and aristocratic impunity, shifting the focus from Victor’s flight response to sustained responsibility.
             </p>
         </section>
 
         <section class="mb-16">
-            <h2 class="text-2xl font-bold mb-6 text-white">Research Poster</h2>
+            <h2 class="text-2xl font-bold mb-6 text-white uppercase mono text-sm">/ Research Poster</h2>
             <div class="w-full image-tint-container rounded-sm border border-blue-500/20 shadow-2xl mb-6">
                 <img src="../assets/Digital HASS poster.png" alt="Frankenstein Reimagined Research Poster" class="w-full h-auto">
             </div>
@@ -94,7 +97,7 @@
         </section>
 
         <section class="mb-16">
-            <h2 class="text-2xl font-bold mb-8 text-white">Evaluation & Stylometric Analysis</h2>
+            <h2 class="text-2xl font-bold mb-8 text-white uppercase mono text-sm">/ Evaluation & Stylometric Analysis</h2>
             <p class="text-zinc-300 mb-10 hud-card p-6 corner-brace">
                 To validate the mimicry, I utilized the <strong>'stylo' package in RStudio</strong> (as instructed in the Digital Humanities curriculum) to perform Principal Component Analysis (PCA) and Cluster Analysis.
             </p>
@@ -102,7 +105,7 @@
             <div class="mb-12 hud-card p-6 corner-brace">
                 <h3 class="text-xl font-bold mb-4 text-blue-400 mono">/ PCA Analysis</h3>
                 <div class="image-tint-container rounded-sm border border-blue-500/20 mb-4">
-                    <img src="../images/Rgraphs.png" alt="Principal Component Analysis Graph" class="w-full h-auto">
+                    <img loading="lazy" decoding="async" src="../images/Rgraphs.png" alt="Principal Component Analysis Graph" class="w-full h-auto">
                 </div>
                 <p class="text-sm text-zinc-400">
                     The PCA plot shows a distinct separation along the PC2 axis, effectively distinguishing Shelley’s original prose (positive section) from the AI-generated chapters (negative section).
@@ -112,7 +115,7 @@
             <div class="mb-12 hud-card p-6 corner-brace">
                 <h3 class="text-xl font-bold mb-4 text-blue-400 mono">/ Cluster Analysis</h3>
                 <div class="image-tint-container rounded-sm border border-blue-500/20 mb-4">
-                    <img src="../images/Rgraphs2.png" alt="Cluster Analysis Dendrogram" class="w-full h-auto">
+                    <img loading="lazy" decoding="async" src="../images/Rgraphs2.png" alt="Cluster Analysis Dendrogram" class="w-full h-auto">
                 </div>
                 <p class="text-sm text-zinc-400">
                     The resulting dendrogram depicts a definitive structural bifurcation. While the AI successfully adopted the Gothic vocabulary, it failed to replicate the author’s distinctive syntactic rhythm.
@@ -122,12 +125,29 @@
 
         <section class="mb-16 p-8 hud-card corner-brace flex flex-col md:flex-row items-center justify-between gap-6 border-l-2 border-blue-500">
             <div>
-                <h2 class="text-2xl font-bold mb-2 text-white">Project Report</h2>
+                <h2 class="text-2xl font-bold mb-2 text-white uppercase mono text-sm">/ Project Report</h2>
                 <p class="text-zinc-400 text-sm">Download the full academic report detailing the humanities significance and methodology.</p>
             </div>
             <a href="../assets/Digital HASS report.docx" class="border border-blue-500/30 text-blue-400 px-6 py-3 rounded-sm hover:bg-blue-500/10 transition mono text-sm">
                 Download .DOCX ↓
             </a>
+        </section>
+
+
+        <section class="mt-24 pt-10 border-t border-zinc-800">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <a href="hermes.html" class="hud-card corner-brace group p-6 flex flex-col justify-center transition hover:border-blue-500/40">
+                    <span class="text-[10px] mono uppercase tracking-widest text-zinc-500 mb-2 group-hover:text-blue-400 transition-colors">&larr; Previous Project</span>
+                    <span class="text-lg font-bold text-zinc-200 group-hover:text-blue-400 transition-colors">HERMES</span>
+                </a>
+                <a href="ikimono.html" class="hud-card corner-brace group p-6 flex flex-col justify-center md:text-right transition hover:border-blue-500/40">
+                    <span class="text-[10px] mono uppercase tracking-widest text-zinc-500 mb-2 group-hover:text-blue-400 transition-colors">Next Project &rarr;</span>
+                    <span class="text-lg font-bold text-zinc-200 group-hover:text-blue-400 transition-colors">Ikimono Wearable</span>
+                </a>
+            </div>
+            <div class="text-center mt-8">
+                <a href="../index.html" class="text-[10px] mono uppercase tracking-widest text-zinc-600 hover:text-blue-400 transition">/ Back to all projects</a>
+            </div>
         </section>
 
     </main>

@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ming | Engineering Portfolio</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     
     <style>
@@ -189,12 +192,27 @@
                 <h1 class="text-6xl md:text-7xl font-bold tracking-tighter mb-6">
                     Hi 👋,<br><span class="text-zinc-500">I am </span>Sng Ming Xiang.
                 </h1>
-                <p class="text-xl text-zinc-400 mb-10 leading-relaxed">
-                    An Engineering Product Development student at SUTD. I focus on the intersection of hardware/electronics and software, bridging the gap between digital simulations and physical hardware.
+                <p class="text-xl text-zinc-400 mb-8 leading-relaxed">
+                    An Engineering Product Development student at SUTD, graduating 2028. I focus on the intersection of hardware/electronics and software, bridging the gap between digital simulations and physical hardware.
                 </p>
+
+                <div class="mb-10 flex items-start gap-3 border-l-2 border-blue-500 bg-blue-500/5 pl-4 py-3">
+                    <span class="relative flex h-2 w-2 mt-2 shrink-0">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-500"></span>
+                    </span>
+                    <div>
+                        <p class="text-[10px] mono uppercase tracking-widest text-blue-400 mb-1">Incoming</p>
+                        <p class="text-zinc-300 text-sm leading-relaxed">
+                            Research Engineering Intern at <span class="text-white font-bold">Keysight Technologies</span>
+                            <span class="text-zinc-500 mono text-xs block mt-0.5">Sep 2026 — Jan 2027</span>
+                        </p>
+                    </div>
+                </div>
+
                 <div class="flex flex-wrap gap-4 mono text-sm">
                     <a href="#projects" class="bg-white text-black px-6 py-3 hover:bg-gray-200 transition">View Works</a>
-                    <a href="assets/SngMingXiang_CV copy.pdf" target="_blank" class="border border-zinc-500 text-white px-6 py-3 hover:bg-zinc-800 transition">Download CV ↓</a>
+                    <a href="assets/SngMingXiang_CV.pdf" target="_blank" class="border border-zinc-500 text-white px-6 py-3 hover:bg-zinc-800 transition">Download CV ↓</a>
                     <a href="https://github.com/ErvinMX" target="_blank" class="border border-zinc-700 px-6 py-3 hover:bg-zinc-800 transition">GitHub ↗</a>
                 </div>
             </div>
@@ -215,8 +233,11 @@
                 
                 <a href="pages/hermes.html" class="hud-card group flex flex-col overflow-hidden corner-brace">
                     <div class="w-full aspect-[4/3] image-tint-container border-b border-blue-500/10">
-                        <img src="images/hermes_cad.png" alt="HERMES CAD Assembly" class="w-full h-full object-cover opacity-70 group-hover:opacity-100">
-                        <div class="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                        <img loading="lazy" decoding="async" src="images/hermes_cad.png" alt="HERMES CAD Assembly" class="w-full h-full object-cover opacity-70 group-hover:opacity-100">
+                        <div class="absolute top-0 right-0 bg-blue-500 text-black font-bold text-[10px] mono px-3 py-1 uppercase tracking-widest z-10">
+                            Industry_Partner
+                        </div>
+                        <div class="absolute top-4 left-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                             <span class="bg-blue-500/20 backdrop-blur text-[10px] mono text-blue-400 border border-blue-500/30 px-2 py-1">VISION_ONLINE</span>
                         </div>
                     </div>
@@ -234,7 +255,7 @@
 
                 <a href="pages/frankenstein.html" class="hud-card group flex flex-col overflow-hidden corner-brace">
                     <div class="w-full aspect-[4/3] image-tint-container border-b border-blue-500/10">
-                        <img src="images/Rgraphs.png" alt="PCA Analysis" class="w-full h-full object-cover opacity-70 group-hover:opacity-100">
+                        <img loading="lazy" decoding="async" src="images/Rgraphs.png" alt="PCA Analysis" class="w-full h-full object-cover opacity-70 group-hover:opacity-100">
                         <div class="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                             <span class="bg-blue-500/20 backdrop-blur text-[10px] mono text-blue-400 border border-blue-500/30 px-2 py-1">ANALYSIS_MODE</span>
                         </div>
@@ -253,7 +274,7 @@
 
                 <a href="pages/ikimono.html" class="hud-card group flex flex-col overflow-hidden corner-brace">
                     <div class="w-full aspect-[4/3] image-tint-container border-b border-blue-500/10">
-                        <img src="images/Mindfulmonkey.jpg" alt="Ikimono Prototype" class="w-full h-full object-cover opacity-70 group-hover:opacity-100">
+                        <img loading="lazy" decoding="async" src="images/Ikimono_prototype3.jpg" alt="Ikimono Prototype" class="w-full h-full object-cover opacity-70 group-hover:opacity-100">
                         <div class="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                             <span class="bg-blue-500/20 backdrop-blur text-[10px] mono text-blue-400 border border-blue-500/30 px-2 py-1">HARDWARE_ACTIVE</span>
                         </div>
@@ -272,7 +293,7 @@
 
                 <a href="pages/icamsee.html" class="hud-card group flex flex-col overflow-hidden corner-brace">
                     <div class="w-full aspect-[4/3] image-tint-container border-b border-blue-500/10">
-                        <img src="images/ICamSeeimg.jpg" alt="I Cam'See CAD" class="w-full h-full object-cover opacity-70 group-hover:opacity-100">
+                        <img loading="lazy" decoding="async" src="images/ICamSeeimg.jpg" alt="I Cam'See CAD" class="w-full h-full object-cover opacity-70 group-hover:opacity-100">
                         <div class="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                             <span class="bg-blue-500/20 backdrop-blur text-[10px] mono text-blue-400 border border-blue-500/30 px-2 py-1">SIM_ENABLED</span>
                         </div>
@@ -291,7 +312,7 @@
 
                 <a href="pages/hcm.html" class="hud-card group flex flex-col overflow-hidden corner-brace">
                     <div class="w-full aspect-[4/3] image-tint-container border-b border-amber-500/10">
-                        <img src="images/FigmaUEHimg.png" alt="TagEdu Dashboard" class="w-full h-full object-cover opacity-70 group-hover:opacity-100">
+                        <img loading="lazy" decoding="async" src="images/FigmaUEHimg.png" alt="TagEdu Dashboard" class="w-full h-full object-cover opacity-70 group-hover:opacity-100">
                         <div class="absolute top-0 right-0 bg-amber-500 text-black font-bold text-[10px] mono px-3 py-1 uppercase tracking-widest z-10">
                             AWARDED_RUNNER_UP
                         </div>
@@ -310,7 +331,7 @@
 
                 <a href="pages/hackuccino.html" class="hud-card group flex flex-col overflow-hidden corner-brace">
                     <div class="w-full aspect-[4/3] image-tint-container border-b border-blue-500/10">
-                        <img src="images/Moving_Duck.jpg" alt="Moving Duck" class="w-full h-full object-cover opacity-70 group-hover:opacity-100">
+                        <img loading="lazy" decoding="async" src="images/Moving_Duck.jpg" alt="Moving Duck" class="w-full h-full object-cover opacity-70 group-hover:opacity-100">
                         <div class="absolute top-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                             <span class="bg-blue-500/20 backdrop-blur text-[10px] mono text-blue-400 border border-blue-500/30 px-2 py-1">SPRINT_READY</span>
                         </div>
@@ -366,10 +387,17 @@
                         </p>
                     </div>
 
-                    <div class="p-8 md:p-16 hover:bg-zinc-900/50 transition duration-500 group">
+                    <div class="p-8 md:p-16 border-b border-zinc-800 hover:bg-zinc-900/50 transition duration-500 group">
                         <h3 class="text-2xl font-bold mb-3 text-zinc-100 group-hover:text-blue-400 transition-colors">Rapid Prototyping</h3>
                         <p class="text-zinc-400 leading-relaxed">
                             Iterative hardware fabrication utilizing FDM 3D Printing. Experienced in material optimization (PLA, PETG) on platforms like Bambu Lab for achieving precise tolerances in functional assemblies.
+                        </p>
+                    </div>
+
+                    <div class="p-8 md:p-16 hover:bg-zinc-900/50 transition duration-500 group">
+                        <h3 class="text-2xl font-bold mb-3 text-zinc-100 group-hover:text-blue-400 transition-colors">Power Systems &amp; Distribution</h3>
+                        <p class="text-zinc-400 leading-relaxed">
+                            Designing mains-powered distribution for multi-subsystem machines. Separating motor and logic rails to keep switching noise off sensing electronics, and using buck regulation to make drive voltage a tunable design parameter rather than a fixed constant.
                         </p>
                     </div>
                 </div>
@@ -398,6 +426,13 @@
                         </p>
                     </div>
                     
+                    <div class="p-8 md:p-16 border-b border-zinc-800 hover:bg-zinc-900/50 transition duration-500 group">
+                        <h3 class="text-2xl font-bold mb-3 text-zinc-100 group-hover:text-blue-400 transition-colors">Event-Based Vision &amp; Real-Time Tracking</h3>
+                        <p class="text-zinc-400 leading-relaxed">
+                            Building embedded computer-vision pipelines on event-based sensors (Prophesee GENX320 / OpenMV), where pixels report brightness change asynchronously rather than on a fixed frame clock. Blob detection, multi-object trajectory tracking with motion prediction, and coincidence-loss modelling for high-rate counting.
+                        </p>
+                    </div>
+
                     <div class="p-8 md:p-16 border-b border-zinc-800 hover:bg-zinc-900/50 transition duration-500 group">
                         <h3 class="text-2xl font-bold mb-3 text-zinc-100 group-hover:text-blue-400 transition-colors">Machine Learning</h3>
                         <p class="text-zinc-400 leading-relaxed">

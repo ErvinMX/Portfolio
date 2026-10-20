@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Haru, an independently developed Korean vocabulary learning app built with SwiftUI and Supabase.">
+  <title>Haru · Korean Learning App | Personal Project</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    body { background:#020617; color:#d4d4d8; font-family:'JetBrains Mono',monospace; }
+    .vector-grid { background-image:radial-gradient(circle at 2px 2px,rgba(59,130,246,.06) 1px,transparent 0);background-size:40px 40px; }
+    .hud-card {background:rgba(9,9,11,.55);border:1px solid rgba(59,130,246,.2);backdrop-filter:blur(12px)}
+    .corner-brace {position:relative}
+    .corner-brace:before,.corner-brace:after {content:'';position:absolute;width:12px;height:12px;pointer-events:none;border-color:rgba(59,130,246,.7);border-style:solid}
+    .corner-brace:before {top:0;left:0;border-width:1px 0 0 1px}
+    .corner-brace:after {bottom:0;right:0;border-width:0 1px 1px 0}
+    .mono {font-family:'Courier New',monospace}
+    .hero-art {background:radial-gradient(ellipse at 75% 25%,rgba(142,190,181,.22),transparent 40%),linear-gradient(135deg,#1b3542,#223846 42%,#0c192b);}
+    .device {border:8px solid #0e1826;box-shadow:0 20px 65px rgba(0,0,0,.4),0 0 0 1px #536875; border-radius:32px;overflow:hidden}
+  </style>
+</head>
+<body class="vector-grid min-h-screen antialiased selection:bg-blue-500/30">
+  <nav class="sticky top-0 z-50 bg-zinc-950/90 backdrop-blur-md border-b border-zinc-800">
+    <div class="max-w-5xl mx-auto px-6 py-4 flex justify-between items-center gap-4">
+      <a href="../index.html#personal-projects" class="text-zinc-400 hover:text-white transition text-sm">← Back to Portfolio</a>
+      <a href="https://github.com/ErvinMX/Haru" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:text-blue-300 text-xs">SOURCE CODE ↗</a>
+    </div>
+  </nav>
+  <main class="max-w-5xl mx-auto px-6 pt-14 pb-24">
+    <div class="flex flex-wrap items-center gap-3 mb-7 text-xs mono">
+      <span class="border border-blue-500/40 bg-blue-500/10 text-blue-300 px-3 py-1">PERSONAL PROJECT</span>
+      <span class="border border-zinc-700 text-zinc-400 px-3 py-1">iOS · SwiftUI</span>
+      <span class="border border-zinc-700 text-zinc-400 px-3 py-1">Web demo available</span>
+    </div>
+    <h1 class="text-5xl md:text-7xl tracking-tighter font-bold text-white mb-4">Haru <span class="text-[#92c8c1]">하루</span></h1>
+    <p class="text-xl text-zinc-400 max-w-3xl leading-relaxed mb-10">A calmer way to build Korean vocabulary, one word at a time.</p>
+    <div class="hero-art relative rounded-sm border border-blue-500/25 px-6 py-10 md:px-14 md:py-12 overflow-hidden mb-14">
+      <div class="absolute inset-0 pointer-events-none opacity-20" style="background-image:linear-gradient(90deg,transparent 49%,rgba(255,255,255,.12) 50%,transparent 51%);background-size:36px 36px"></div>
+      <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-10 md:gap-14">
+        <div class="text-center md:text-left max-w-md">
+          <div class="text-[#e4efeb] text-6xl md:text-7xl" style="font-family:Georgia,serif">하루</div>
+          <p class="text-[#adcac8] tracking-[0.30em] uppercase text-xs mt-5">Haru · 하루</p>
+          <h2 class="text-white text-2xl md:text-3xl font-bold mt-7 leading-snug">Learn Korean at your own pace.</h2>
+          <p class="text-[#c0d6d9] text-sm mt-5 leading-relaxed">Thoughtful vocabulary practice, a themed learning journey, and a calmer way to keep discovering new words.</p>
+        </div>
+        <img src="../images/haru-home.webp" alt="Haru home screen showing the learning dashboard and Korean scenery" class="relative w-[210px] sm:w-[245px] md:w-[265px] max-w-full h-auto drop-shadow-2xl" fetchpriority="high">
+      </div>
+    </div>
+    <section class="mb-14 hud-card corner-brace p-7 md:p-9">
+      <h2 class="text-blue-400 text-sm tracking-widest uppercase font-bold mb-5">/ Project Overview</h2>
+      <p class="text-zinc-300 leading-relaxed">Haru is an independently developed Korean vocabulary learning application built in SwiftUI. It explores how a language-learning experience can feel approachable and self-directed without relying on streak pressure or competitive gamification. Learners explore themed vocabulary, practise recall through quizzes and revisit words as their knowledge grows.</p>
+    </section>
+    <section class="mb-14">
+      <h2 class="text-blue-400 text-sm tracking-widest uppercase font-bold mb-6">/ Core Features</h2>
+      <div class="grid md:grid-cols-2 gap-4">
+        <div class="hud-card p-6"><h3 class="text-white font-bold mb-2">Themed learning journey</h3><p class="text-zinc-400 text-sm leading-relaxed">Explore Korean vocabulary in structured themes through a Seoul-inspired journey interface.</p></div>
+        <div class="hud-card p-6"><h3 class="text-white font-bold mb-2">Vocabulary and quizzes</h3><p class="text-zinc-400 text-sm leading-relaxed">Discover words, practise Hangul recognition and review previously learned vocabulary.</p></div>
+        <div class="hud-card p-6"><h3 class="text-white font-bold mb-2">Korean pronunciation</h3><p class="text-zinc-400 text-sm leading-relaxed">On-device text-to-speech helps learners hear Korean words and examples.</p></div>
+        <div class="hud-card p-6"><h3 class="text-white font-bold mb-2">Progress at your own pace</h3><p class="text-zinc-400 text-sm leading-relaxed">Track introduced and mastered vocabulary without streaks or leaderboards.</p></div>
+      </div>
+    </section>
+    <section class="mb-14">
+      <h2 class="text-blue-400 text-sm tracking-widest uppercase font-bold mb-6">/ Technical Implementation</h2>
+      <div class="hud-card p-7 md:p-9 grid md:grid-cols-2 gap-8">
+        <div><h3 class="text-white font-bold mb-3">Technology stack</h3><p class="text-zinc-400 text-sm leading-7">Swift · SwiftUI · Supabase · AVFoundation · WidgetKit · Git / GitHub</p></div>
+        <div><h3 class="text-white font-bold mb-3">Architecture and design</h3><p class="text-zinc-400 text-sm leading-relaxed">Supabase-backed vocabulary data, locally persisted learning progress, shared state for learning and review, and time-of-day visual themes. iOS widget functionality is still being refined.</p></div>
+      </div>
+    </section>
+    <section class="mb-14">
+      <h2 class="text-blue-400 text-sm tracking-widest uppercase font-bold mb-3">/ Interface Gallery</h2>
+      <p class="text-zinc-400 text-sm mb-7">Screenshots from the native SwiftUI prototype. Select an image to view it at full size.</p>
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-5">
+        <figure class="hud-card overflow-hidden">
+          <a href="../images/haru-home.webp" target="_blank" rel="noopener noreferrer" aria-label="Open full-size Home screenshot" class="block bg-[#0b1825] overflow-hidden">
+            <img src="../images/haru-home.webp" alt="Haru Home screen" loading="lazy" class="w-full h-[265px] sm:h-[350px] object-contain hover:scale-[1.04] transition-transform duration-300">
+          </a>
+          <figcaption class="p-3"><div class="text-white font-bold text-xs mb-1">Home</div><p class="text-zinc-500 text-[11px] leading-relaxed">The welcoming home dashboard and current learning stage.</p></figcaption>
+        </figure>
+        <figure class="hud-card overflow-hidden">
+          <a href="../images/haru-learn.webp" target="_blank" rel="noopener noreferrer" aria-label="Open full-size Learn screenshot" class="block bg-[#0b1825] overflow-hidden">
+            <img src="../images/haru-learn.webp" alt="Haru Learn screen" loading="lazy" class="w-full h-[265px] sm:h-[350px] object-contain hover:scale-[1.04] transition-transform duration-300">
+          </a>
+          <figcaption class="p-3"><div class="text-white font-bold text-xs mb-1">Learn</div><p class="text-zinc-500 text-[11px] leading-relaxed">Review themes or browse new learning activities.</p></figcaption>
+        </figure>
+        <figure class="hud-card overflow-hidden">
+          <a href="../images/haru-journey.webp" target="_blank" rel="noopener noreferrer" aria-label="Open full-size Journey screenshot" class="block bg-[#0b1825] overflow-hidden">
+            <img src="../images/haru-journey.webp" alt="Haru Journey screen" loading="lazy" class="w-full h-[265px] sm:h-[350px] object-contain hover:scale-[1.04] transition-transform duration-300">
+          </a>
+          <figcaption class="p-3"><div class="text-white font-bold text-xs mb-1">Journey</div><p class="text-zinc-500 text-[11px] leading-relaxed">Track vocabulary discovery through themed chapters.</p></figcaption>
+        </figure>
+        <figure class="hud-card overflow-hidden">
+          <a href="../images/haru-vocabulary-learning.webp" target="_blank" rel="noopener noreferrer" aria-label="Open full-size Vocabulary Learning screenshot" class="block bg-[#0b1825] overflow-hidden">
+            <img src="../images/haru-vocabulary-learning.webp" alt="Haru Vocabulary Learning screen" loading="lazy" class="w-full h-[265px] sm:h-[350px] object-contain hover:scale-[1.04] transition-transform duration-300">
+          </a>
+          <figcaption class="p-3"><div class="text-white font-bold text-xs mb-1">Vocabulary Learning</div><p class="text-zinc-500 text-[11px] leading-relaxed">Learn Hangul with sentence examples and pronunciation.</p></figcaption>
+        </figure>
+        <figure class="hud-card overflow-hidden">
+          <a href="../images/haru-practice-quiz.webp" target="_blank" rel="noopener noreferrer" aria-label="Open full-size Practice Quiz screenshot" class="block bg-[#0b1825] overflow-hidden">
+            <img src="../images/haru-practice-quiz.webp" alt="Haru Practice Quiz screen" loading="lazy" class="w-full h-[265px] sm:h-[350px] object-contain hover:scale-[1.04] transition-transform duration-300">
+          </a>
+          <figcaption class="p-3"><div class="text-white font-bold text-xs mb-1">Practice Quiz</div><p class="text-zinc-500 text-[11px] leading-relaxed">Reinforce vocabulary through interactive matching questions.</p></figcaption>
+        </figure>
+        <figure class="hud-card overflow-hidden">
+          <a href="../images/haru-settings.webp" target="_blank" rel="noopener noreferrer" aria-label="Open full-size Settings screenshot" class="block bg-[#0b1825] overflow-hidden">
+            <img src="../images/haru-settings.webp" alt="Haru Settings screen" loading="lazy" class="w-full h-[265px] sm:h-[350px] object-contain hover:scale-[1.04] transition-transform duration-300">
+          </a>
+          <figcaption class="p-3"><div class="text-white font-bold text-xs mb-1">Settings</div><p class="text-zinc-500 text-[11px] leading-relaxed">Personalise Korean pronunciation speed, pitch and volume.</p></figcaption>
+        </figure>
+        <figure class="hud-card overflow-hidden">
+          <a href="../images/haru-theme-review.webp" target="_blank" rel="noopener noreferrer" aria-label="Open full-size Theme Review screenshot" class="block bg-[#0b1825] overflow-hidden">
+            <img src="../images/haru-theme-review.webp" alt="Haru Theme Review screen" loading="lazy" class="w-full h-[265px] sm:h-[350px] object-contain hover:scale-[1.04] transition-transform duration-300">
+          </a>
+          <figcaption class="p-3"><div class="text-white font-bold text-xs mb-1">Theme Review</div><p class="text-zinc-500 text-[11px] leading-relaxed">See discovered and mastered words for each theme.</p></figcaption>
+        </figure>
+      </div>
+    </section>
+    <section class="mb-14">
+      <h2 class="text-blue-400 text-sm tracking-widest uppercase font-bold mb-5">/ Development Status</h2>
+      <p class="text-zinc-400 leading-relaxed">The original iOS implementation is available as source code. A browser-accessible version is now available so visitors can try Haru without installing an iOS development build. The web adaptation is designed primarily for mobile browsers.</p>
+    </section>
+    <section class="mb-10 hud-card corner-brace p-7 md:p-9">
+      <h2 class="text-blue-400 text-sm tracking-widest uppercase font-bold mb-5">/ Web Demo &amp; Acknowledgements</h2>
+      <p class="text-zinc-300 text-sm leading-relaxed mb-4">Haru was originally developed as a native iOS app using SwiftUI. The browser version was adapted with assistance from <a href="https://claude.ai/" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:text-blue-300 underline">Claude by Anthropic</a> and is deployed using <a href="https://pages.cloudflare.com/" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:text-blue-300 underline">Cloudflare Pages</a>, connected to a private GitHub repository for version control and automatic deployments.</p>
+      <p class="text-zinc-400 text-sm leading-relaxed mb-4">The web experience is primarily optimised for mobile browsers. Visitors can save progress locally in their browser or explore without saving. Locally saved progress is specific to that browser and device.</p>
+      <p class="text-zinc-400 text-sm leading-relaxed">Vocabulary data sourced from <a href="https://topikvocab.foldalpha.com/download/" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:text-blue-300 underline">FoldAlpha TOPIK Vocabulary</a>.</p>
+    </section>
+    <div class="flex flex-wrap gap-4">
+      <a href="https://haru-web-vod.pages.dev" target="_blank" rel="noopener noreferrer" class="inline-block bg-white text-black font-bold px-7 py-4 hover:bg-zinc-200 transition text-sm">Try Haru Web ↗</a>
+      <a href="https://github.com/ErvinMX/Haru" target="_blank" rel="noopener noreferrer" class="inline-block border border-blue-500/50 text-blue-300 px-7 py-4 hover:bg-blue-500/10 transition text-sm">Explore SwiftUI Source ↗</a>
+      <a href="../index.html#personal-projects" class="inline-block border border-zinc-600 text-white px-7 py-4 hover:bg-zinc-900 transition text-sm">← More Projects</a>
+    </div>
+  </main>
+  <footer class="border-t border-zinc-800 px-6 py-8 text-center text-zinc-600 text-xs">Haru · Personal Project</footer>
+</body>
+</html>
